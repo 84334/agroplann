@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { crops } from "@/data/cropData";
-import { Search, ExternalLink, Play, BookOpen } from "lucide-react";
+import { Search, ExternalLink, BookOpen } from "lucide-react";
 
 const farmerTips = [
   {
