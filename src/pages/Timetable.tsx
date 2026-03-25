@@ -7,6 +7,7 @@ import { useGeolocation } from "@/hooks/useWeather";
 import { useForecast } from "@/hooks/useForecast";
 import { checkCropWeatherSuitability, getSuitabilityLabel } from "@/lib/weatherCropEngine";
 import GrowthStageTimeline from "@/components/GrowthStageTimeline";
+import CropGrowthAnimation from "@/components/CropGrowthAnimation";
 import TimetableCalendar from "@/components/TimetableCalendar";
 
 interface PlannedCrop {
