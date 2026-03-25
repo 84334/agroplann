@@ -10,6 +10,14 @@ export interface CropInfo {
   season: string;
   plantMonth: string;
   description: string;
+  // Weather suitability
+  idealRainfall: [number, number]; // mm over growth period [min, max]
+  idealTempRange: [number, number]; // °C [min, max]
+  droughtTolerance: "low" | "medium" | "high";
+  floodTolerance: "low" | "medium" | "high";
+  heatTolerance: "low" | "medium" | "high";
+  coldTolerance: "low" | "medium" | "high";
+  bestSeasonMonths: number[]; // 1-12
 }
 
 export interface Recommendation {
@@ -30,6 +38,13 @@ export const crops: Record<string, CropInfo> = {
     season: "Spring–Summer",
     plantMonth: "March – May",
     description: "A warm-season cereal grain that thrives in full sun and is a staple food worldwide.",
+    idealRainfall: [500, 800],
+    idealTempRange: [20, 35],
+    droughtTolerance: "medium",
+    floodTolerance: "low",
+    heatTolerance: "high",
+    coldTolerance: "low",
+    bestSeasonMonths: [3, 4, 5, 6, 7],
   },
   soybean: {
     name: "Soybean",
@@ -43,6 +58,13 @@ export const crops: Record<string, CropInfo> = {
     season: "Late Spring–Fall",
     plantMonth: "May – June",
     description: "A nitrogen-fixing legume excellent for soil restoration after heavy feeders like corn.",
+    idealRainfall: [450, 700],
+    idealTempRange: [20, 30],
+    droughtTolerance: "medium",
+    floodTolerance: "low",
+    heatTolerance: "medium",
+    coldTolerance: "low",
+    bestSeasonMonths: [5, 6, 7, 8, 9],
   },
   rice: {
     name: "Rice",
@@ -56,6 +78,13 @@ export const crops: Record<string, CropInfo> = {
     season: "Monsoon / Wet season",
     plantMonth: "June – August",
     description: "The world's most important food crop, grown in flooded paddy fields.",
+    idealRainfall: [1200, 2000],
+    idealTempRange: [22, 35],
+    droughtTolerance: "low",
+    floodTolerance: "high",
+    heatTolerance: "high",
+    coldTolerance: "low",
+    bestSeasonMonths: [6, 7, 8, 9, 10],
   },
   spinach: {
     name: "Spinach",
@@ -69,6 +98,13 @@ export const crops: Record<string, CropInfo> = {
     season: "Cool season (Fall–Spring)",
     plantMonth: "September – November",
     description: "A fast-growing leafy green packed with iron and vitamins.",
+    idealRainfall: [300, 450],
+    idealTempRange: [10, 24],
+    droughtTolerance: "low",
+    floodTolerance: "low",
+    heatTolerance: "low",
+    coldTolerance: "high",
+    bestSeasonMonths: [9, 10, 11, 12, 1, 2, 3],
   },
   tomato: {
     name: "Tomato",
@@ -82,6 +118,13 @@ export const crops: Record<string, CropInfo> = {
     season: "Warm season",
     plantMonth: "April – June",
     description: "A versatile fruit crop popular in tropical and temperate regions.",
+    idealRainfall: [600, 800],
+    idealTempRange: [18, 30],
+    droughtTolerance: "low",
+    floodTolerance: "low",
+    heatTolerance: "medium",
+    coldTolerance: "low",
+    bestSeasonMonths: [4, 5, 6, 7, 8],
   },
   cassava: {
     name: "Cassava",
@@ -95,6 +138,13 @@ export const crops: Record<string, CropInfo> = {
     season: "Year-round in tropics",
     plantMonth: "Year-round (start of rainy season preferred)",
     description: "A hardy root crop and staple food in tropical regions, very drought-resistant.",
+    idealRainfall: [500, 1000],
+    idealTempRange: [25, 35],
+    droughtTolerance: "high",
+    floodTolerance: "low",
+    heatTolerance: "high",
+    coldTolerance: "low",
+    bestSeasonMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
   },
   peanut: {
     name: "Peanut",
@@ -108,6 +158,13 @@ export const crops: Record<string, CropInfo> = {
     season: "Warm season",
     plantMonth: "April – June",
     description: "A nitrogen-fixing legume that enriches soil while providing high-protein harvests.",
+    idealRainfall: [400, 600],
+    idealTempRange: [20, 33],
+    droughtTolerance: "medium",
+    floodTolerance: "low",
+    heatTolerance: "high",
+    coldTolerance: "low",
+    bestSeasonMonths: [4, 5, 6, 7, 8],
   },
   cabbage: {
     name: "Cabbage",
@@ -121,6 +178,13 @@ export const crops: Record<string, CropInfo> = {
     season: "Cool season",
     plantMonth: "August – October",
     description: "A cool-season brassica ideal for crop rotation after legumes.",
+    idealRainfall: [350, 500],
+    idealTempRange: [12, 24],
+    droughtTolerance: "low",
+    floodTolerance: "low",
+    heatTolerance: "low",
+    coldTolerance: "high",
+    bestSeasonMonths: [8, 9, 10, 11, 12, 1],
   },
   palm: {
     name: "Oil Palm",
@@ -134,6 +198,13 @@ export const crops: Record<string, CropInfo> = {
     season: "Year-round in tropics",
     plantMonth: "Year-round (avoid heavy monsoon)",
     description: "A high-yield perennial oil crop dominant in Southeast Asian agriculture.",
+    idealRainfall: [2000, 2500],
+    idealTempRange: [24, 35],
+    droughtTolerance: "low",
+    floodTolerance: "medium",
+    heatTolerance: "high",
+    coldTolerance: "low",
+    bestSeasonMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
   },
 };
 
