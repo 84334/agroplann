@@ -14,6 +14,7 @@ export default function Recommend() {
 
   const { location: geoLoc } = useGeolocation();
   const { weather } = useWeather(geoLoc);
+  const { forecast, loading: forecastLoading, error: forecastError } = useForecast(geoLoc);
 
   const recommendations = previousCrop ? rotationRules[previousCrop] ?? [] : [];
   const selectedCropInfo = selectedRec ? crops[selectedRec] : null;
