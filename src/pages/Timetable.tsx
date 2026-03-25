@@ -333,17 +333,27 @@ export default function Timetable() {
           })}
 
           {/* Calendar View */}
-          <div className="space-y-4">
-            <h2 className="font-display text-xl font-semibold flex items-center gap-2">
-              <CalendarDays className="h-5 w-5 text-primary" />
-              Calendar View
-            </h2>
-            <TimetableCalendar
-              entries={calendarEntries}
-              month={calendarMonth}
-              onMonthChange={setCalendarMonth}
-            />
-          </div>
+          {showCalendar ? (
+            <div className="space-y-4">
+              <h2 className="font-display text-xl font-semibold flex items-center gap-2">
+                <CalendarDays className="h-5 w-5 text-primary" />
+                Calendar View
+              </h2>
+              <TimetableCalendar
+                entries={calendarEntries}
+                month={calendarMonth}
+                onMonthChange={setCalendarMonth}
+              />
+            </div>
+          ) : (
+            <div className="rounded-xl border border-dashed bg-muted/30 p-8 text-center">
+              <Lock className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
+              <p className="text-sm font-medium text-muted-foreground">Calendar View is a Pro feature</p>
+              <button onClick={() => navigate("/pricing")} className="mt-3 rounded-lg bg-primary px-4 py-2 text-xs font-medium text-primary-foreground hover:bg-primary/90">
+                <Sparkles className="h-3 w-3 inline mr-1" />Upgrade to Pro
+              </button>
+            </div>
+          )}
         </div>
       )}
 
