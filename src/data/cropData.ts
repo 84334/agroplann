@@ -28,6 +28,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Corn smut", "Gray leaf spot", "Northern corn leaf blight"],
     yieldPerHectare: "8–12 tons",
     season: "Spring–Summer",
+    plantMonth: "March – May",
     description: "A warm-season cereal grain that thrives in full sun and is a staple food worldwide.",
   },
   soybean: {
