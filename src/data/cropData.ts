@@ -8,6 +8,7 @@ export interface CropInfo {
   diseases: string[];
   yieldPerHectare: string;
   season: string;
+  plantMonth: string;
   description: string;
 }
 
@@ -27,6 +28,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Corn smut", "Gray leaf spot", "Northern corn leaf blight"],
     yieldPerHectare: "8–12 tons",
     season: "Spring–Summer",
+    plantMonth: "March – May",
     description: "A warm-season cereal grain that thrives in full sun and is a staple food worldwide.",
   },
   soybean: {
@@ -39,6 +41,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Soybean rust", "Root rot", "Brown spot"],
     yieldPerHectare: "2–3.5 tons",
     season: "Late Spring–Fall",
+    plantMonth: "May – June",
     description: "A nitrogen-fixing legume excellent for soil restoration after heavy feeders like corn.",
   },
   rice: {
@@ -51,6 +54,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Rice blast", "Bacterial leaf blight", "Sheath blight"],
     yieldPerHectare: "4–8 tons",
     season: "Monsoon / Wet season",
+    plantMonth: "June – August",
     description: "The world's most important food crop, grown in flooded paddy fields.",
   },
   spinach: {
@@ -63,6 +67,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Downy mildew", "Leaf spot", "Fusarium wilt"],
     yieldPerHectare: "10–15 tons",
     season: "Cool season (Fall–Spring)",
+    plantMonth: "September – November",
     description: "A fast-growing leafy green packed with iron and vitamins.",
   },
   tomato: {
@@ -75,6 +80,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Early blight", "Late blight", "Bacterial wilt"],
     yieldPerHectare: "40–80 tons",
     season: "Warm season",
+    plantMonth: "April – June",
     description: "A versatile fruit crop popular in tropical and temperate regions.",
   },
   cassava: {
@@ -87,6 +93,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Cassava mosaic", "Bacterial blight", "Root rot"],
     yieldPerHectare: "10–25 tons",
     season: "Year-round in tropics",
+    plantMonth: "Year-round (start of rainy season preferred)",
     description: "A hardy root crop and staple food in tropical regions, very drought-resistant.",
   },
   peanut: {
@@ -99,6 +106,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Leaf spot", "Rust", "Aflatoxin contamination"],
     yieldPerHectare: "1.5–3 tons",
     season: "Warm season",
+    plantMonth: "April – June",
     description: "A nitrogen-fixing legume that enriches soil while providing high-protein harvests.",
   },
   cabbage: {
@@ -111,6 +119,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Black rot", "Clubroot", "Downy mildew"],
     yieldPerHectare: "30–60 tons",
     season: "Cool season",
+    plantMonth: "August – October",
     description: "A cool-season brassica ideal for crop rotation after legumes.",
   },
   palm: {
@@ -123,6 +132,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Ganoderma basal stem rot", "Bud rot", "Leaf spot"],
     yieldPerHectare: "15–25 tons (fresh fruit bunches)",
     season: "Year-round in tropics",
+    plantMonth: "Year-round (avoid heavy monsoon)",
     description: "A high-yield perennial oil crop dominant in Southeast Asian agriculture.",
   },
 };
