@@ -3,6 +3,8 @@ import { crops, rotationRules, locations, getWeatherAdjustment } from "@/data/cr
 import { Lightbulb, Calendar, MapPin, TrendingUp, Leaf, Cloud } from "lucide-react";
 import { format, addDays } from "date-fns";
 import { useGeolocation, useWeather } from "@/hooks/useWeather";
+import { useForecast } from "@/hooks/useForecast";
+import WeatherForecastAlert from "@/components/WeatherForecastAlert";
 
 export default function Recommend() {
   const [previousCrop, setPreviousCrop] = useState("");
@@ -12,6 +14,7 @@ export default function Recommend() {
 
   const { location: geoLoc } = useGeolocation();
   const { weather } = useWeather(geoLoc);
+  const { forecast, loading: forecastLoading, error: forecastError } = useForecast(geoLoc);
 
   const recommendations = previousCrop ? rotationRules[previousCrop] ?? [] : [];
   const selectedCropInfo = selectedRec ? crops[selectedRec] : null;
@@ -51,7 +54,9 @@ export default function Recommend() {
         </div>
       )}
 
-      {/* Step 1: Select previous crop */}
+      {/* 16-Day Weather Forecast Alert */}
+      <WeatherForecastAlert forecast={forecast} loading={forecastLoading} error={forecastError} />
+
       <div className="space-y-4">
         <h2 className="font-display text-xl font-semibold flex items-center gap-2">
           <span className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-primary text-primary-foreground text-sm font-bold">1</span>
