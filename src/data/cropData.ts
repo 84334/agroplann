@@ -41,6 +41,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Soybean rust", "Root rot", "Brown spot"],
     yieldPerHectare: "2–3.5 tons",
     season: "Late Spring–Fall",
+    plantMonth: "May – June",
     description: "A nitrogen-fixing legume excellent for soil restoration after heavy feeders like corn.",
   },
   rice: {
