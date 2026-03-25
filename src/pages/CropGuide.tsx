@@ -169,6 +169,36 @@ export default function CropGuide() {
           </div>
         )}
       </div>
+
+      {/* Farmer Tips Section */}
+      <div className="mt-12">
+        <h2 className="font-display text-2xl md:text-3xl font-bold mb-2">🌾 Farmer Tips & Guidance</h2>
+        <p className="text-muted-foreground mb-6">Simple, beginner-friendly advice to improve your farming. Click any tip for a detailed tutorial.</p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {farmerTips.map((tip) => (
+            <a
+              key={tip.title}
+              href={tip.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col rounded-xl border bg-card p-5 transition-all hover:shadow-md hover:border-primary/30 hover:-translate-y-0.5"
+            >
+              <div className="flex items-start gap-3 mb-3">
+                <span className="text-3xl">{tip.emoji}</span>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">{tip.title}</h3>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed flex-1 mb-4">{tip.description}</p>
+              <div className="flex items-center gap-1.5 text-xs font-medium text-primary">
+                {tip.type === "video" ? <Play className="h-3.5 w-3.5" /> : <BookOpen className="h-3.5 w-3.5" />}
+                <span>{tip.linkLabel}</span>
+                <ExternalLink className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
