@@ -70,6 +70,7 @@ export default function CropGuide() {
                 { label: "Fertilizer", value: info.fertilizer, icon: "🧪" },
                 { label: "Growth Duration", value: `${info.growthDays} days`, icon: "⏱️" },
                 { label: "Season", value: info.season, icon: "☀️" },
+                { label: "Best Month to Plant", value: info.plantMonth, icon: "📅" },
                 { label: "Expected Yield", value: `${info.yieldPerHectare} per hectare`, icon: "📦" },
               ].map((item) => (
                 <div key={item.label} className="flex items-start gap-3 rounded-lg bg-muted/50 p-4">

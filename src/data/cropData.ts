@@ -132,6 +132,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Ganoderma basal stem rot", "Bud rot", "Leaf spot"],
     yieldPerHectare: "15–25 tons (fresh fruit bunches)",
     season: "Year-round in tropics",
+    plantMonth: "Year-round (avoid heavy monsoon)",
     description: "A high-yield perennial oil crop dominant in Southeast Asian agriculture.",
   },
 };
