@@ -54,7 +54,9 @@ export default function Recommend() {
         </div>
       )}
 
-      {/* Step 1: Select previous crop */}
+      {/* 16-Day Weather Forecast Alert */}
+      <WeatherForecastAlert forecast={forecast} loading={forecastLoading} error={forecastError} />
+
       <div className="space-y-4">
         <h2 className="font-display text-xl font-semibold flex items-center gap-2">
           <span className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-primary text-primary-foreground text-sm font-bold">1</span>
