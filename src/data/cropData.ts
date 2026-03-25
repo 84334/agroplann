@@ -8,6 +8,7 @@ export interface CropInfo {
   diseases: string[];
   yieldPerHectare: string;
   season: string;
+  plantMonth: string;
   description: string;
 }
 
