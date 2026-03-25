@@ -10,6 +10,14 @@ export interface CropInfo {
   season: string;
   plantMonth: string;
   description: string;
+  // Weather suitability
+  idealRainfall: [number, number]; // mm over growth period [min, max]
+  idealTempRange: [number, number]; // °C [min, max]
+  droughtTolerance: "low" | "medium" | "high";
+  floodTolerance: "low" | "medium" | "high";
+  heatTolerance: "low" | "medium" | "high";
+  coldTolerance: "low" | "medium" | "high";
+  bestSeasonMonths: number[]; // 1-12
 }
 
 export interface Recommendation {
