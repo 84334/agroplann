@@ -98,14 +98,20 @@ export default function TimetableCalendar({ entries, month, onMonthChange }: Pro
                 {format(day, "d")}
               </span>
 
-              <div className="flex flex-wrap gap-[2px] mt-0.5 justify-center">
-                {stageInfos.map((s, i) => (
+              <div className="flex flex-col gap-[2px] mt-0.5 items-center overflow-hidden w-full">
+                {stageInfos.slice(0, 2).map((s, i) => (
                   <div
                     key={i}
-                    className={`w-2.5 h-2.5 rounded-full ${s.result!.stage.color}`}
+                    className="flex items-center gap-1 w-full justify-center"
                     title={`${s.entry.crop.emoji} ${s.entry.crop.name}: ${s.result!.stage.name}${s.result!.isHarvest ? " 🎉 HARVEST DAY" : ""}`}
-                  />
+                  >
+                    <div className={`w-2 h-2 rounded-full shrink-0 ${s.result!.stage.color}`} />
+                    <span className="text-[8px] text-muted-foreground truncate leading-tight">{s.result!.stage.name}</span>
+                  </div>
                 ))}
+                {stageInfos.length > 2 && (
+                  <span className="text-[8px] text-muted-foreground">+{stageInfos.length - 2}</span>
+                )}
               </div>
 
               {hasHarvest && (
