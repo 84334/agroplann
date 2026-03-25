@@ -3,6 +3,8 @@ import { crops, rotationRules, locations, getWeatherAdjustment } from "@/data/cr
 import { Lightbulb, Calendar, MapPin, TrendingUp, Leaf, Cloud } from "lucide-react";
 import { format, addDays } from "date-fns";
 import { useGeolocation, useWeather } from "@/hooks/useWeather";
+import { useForecast } from "@/hooks/useForecast";
+import WeatherForecastAlert from "@/components/WeatherForecastAlert";
 
 export default function Recommend() {
   const [previousCrop, setPreviousCrop] = useState("");
