@@ -8,7 +8,7 @@ interface WeatherWidgetProps {
   coordinates?: { lat: number; lon: number } | null;
 }
 
-export default function WeatherWidget({ weather, loading, error }: WeatherWidgetProps) {
+export default function WeatherWidget({ weather, loading, error, coordinates }: WeatherWidgetProps) {
   if (loading) {
     return (
       <div className="rounded-xl border bg-card p-6 animate-pulse">
