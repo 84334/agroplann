@@ -191,7 +191,7 @@ export default function CropGuide() {
               </div>
               <p className="text-xs text-muted-foreground leading-relaxed flex-1 mb-4">{tip.description}</p>
               <div className="flex items-center gap-1.5 text-xs font-medium text-primary">
-                {tip.type === "video" ? <Play className="h-3.5 w-3.5" /> : <BookOpen className="h-3.5 w-3.5" />}
+                <BookOpen className="h-3.5 w-3.5" />
                 <span>{tip.linkLabel}</span>
                 <ExternalLink className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
