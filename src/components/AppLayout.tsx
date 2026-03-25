@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Home, Lightbulb, CalendarDays, BookOpen, Menu, X, Sprout, Calculator, LogIn, LogOut, User } from "lucide-react";
+import { Home, Lightbulb, CalendarDays, BookOpen, Menu, X, Sprout, Calculator, LogIn, LogOut, User, Bot, Crown } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 const navItems = [
@@ -9,6 +9,8 @@ const navItems = [
   { path: "/timetable", label: "Timetable", icon: CalendarDays },
   { path: "/guide", label: "Crop Guide", icon: BookOpen },
   { path: "/predictions", label: "Predictions", icon: Calculator },
+  { path: "/ai-chat", label: "AI Chat", icon: Bot, pro: true },
+  { path: "/pricing", label: "Pro", icon: Crown },
 ];
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
