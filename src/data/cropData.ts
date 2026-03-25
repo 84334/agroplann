@@ -106,6 +106,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Leaf spot", "Rust", "Aflatoxin contamination"],
     yieldPerHectare: "1.5–3 tons",
     season: "Warm season",
+    plantMonth: "April – June",
     description: "A nitrogen-fixing legume that enriches soil while providing high-protein harvests.",
   },
   cabbage: {
