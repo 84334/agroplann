@@ -14,7 +14,129 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      predictions: {
+        Row: {
+          created_at: string
+          crop: string
+          estimated_profit: number | null
+          estimated_revenue: number | null
+          estimated_yield_tons: number | null
+          fertilizer_cost: number
+          id: string
+          land_size_hectares: number
+          location: string | null
+          seed_cost: number
+          user_id: string
+          weather_data: Json | null
+        }
+        Insert: {
+          created_at?: string
+          crop: string
+          estimated_profit?: number | null
+          estimated_revenue?: number | null
+          estimated_yield_tons?: number | null
+          fertilizer_cost?: number
+          id?: string
+          land_size_hectares: number
+          location?: string | null
+          seed_cost?: number
+          user_id: string
+          weather_data?: Json | null
+        }
+        Update: {
+          created_at?: string
+          crop?: string
+          estimated_profit?: number | null
+          estimated_revenue?: number | null
+          estimated_yield_tons?: number | null
+          fertilizer_cost?: number
+          id?: string
+          land_size_hectares?: number
+          location?: string | null
+          seed_cost?: number
+          user_id?: string
+          weather_data?: Json | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          farm_location: string | null
+          farm_size_hectares: number | null
+          id: string
+          latitude: number | null
+          longitude: number | null
+          preferred_crops: string[] | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          farm_location?: string | null
+          farm_size_hectares?: number | null
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          preferred_crops?: string[] | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          farm_location?: string | null
+          farm_size_hectares?: number | null
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          preferred_crops?: string[] | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      saved_plans: {
+        Row: {
+          created_at: string
+          id: string
+          location: string | null
+          notes: string | null
+          plan_name: string
+          planting_date: string | null
+          previous_crop: string
+          rotation_sequence: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          location?: string | null
+          notes?: string | null
+          plan_name: string
+          planting_date?: string | null
+          previous_crop: string
+          rotation_sequence?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          location?: string | null
+          notes?: string | null
+          plan_name?: string
+          planting_date?: string | null
+          previous_crop?: string
+          rotation_sequence?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
