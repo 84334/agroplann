@@ -42,7 +42,7 @@ export default function CropGrowthAnimation({
     const pct = Math.min(100, Math.max(0, (effectiveDays / adjustedTotal) * 100));
 
     const stage =
-      STAGES.findLast((s) => pct >= s.startPct) ?? STAGES[0];
+      [...STAGES].reverse().find((s) => pct >= s.startPct) ?? STAGES[0];
 
     return {
       progress: pct,
