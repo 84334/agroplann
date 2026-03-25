@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { crops, rotationRules, locations, getWeatherAdjustment } from "@/data/cropData";
-import { Lightbulb, Calendar, MapPin, TrendingUp, ArrowRight, Leaf } from "lucide-react";
+import { Lightbulb, Calendar, MapPin, TrendingUp, Leaf, Cloud } from "lucide-react";
 import { format, addDays } from "date-fns";
+import { useGeolocation, useWeather } from "@/hooks/useWeather";
 
 export default function Recommend() {
   const [previousCrop, setPreviousCrop] = useState("");
@@ -9,12 +10,20 @@ export default function Recommend() {
   const [plantingDate, setPlantingDate] = useState("");
   const [location, setLocation] = useState("Malaysia");
 
+  const { location: geoLoc } = useGeolocation();
+  const { weather } = useWeather(geoLoc);
+
   const recommendations = previousCrop ? rotationRules[previousCrop] ?? [] : [];
   const selectedCropInfo = selectedRec ? crops[selectedRec] : null;
 
+  // Weather-based adjustment: if live weather available, use temp/humidity to tweak growth days
+  const weatherGrowthAdj = weather
+    ? (weather.temp > 35 ? 10 : weather.temp < 15 ? 15 : 0) + (weather.humidity > 85 ? 5 : 0)
+    : 0;
+
   const harvestInfo = selectedCropInfo && plantingDate
     ? (() => {
-        const adj = getWeatherAdjustment(location);
+        const adj = getWeatherAdjustment(location) + weatherGrowthAdj;
         const totalDays = selectedCropInfo.growthDays + adj;
         const harvest = addDays(new Date(plantingDate), totalDays);
         return { totalDays, harvestDate: harvest };
@@ -27,6 +36,20 @@ export default function Recommend() {
         <h1 className="font-display text-3xl md:text-4xl font-bold mb-2">Smart Crop Recommendation</h1>
         <p className="text-muted-foreground">Select your previous crop and get science-backed suggestions for what to plant next.</p>
       </div>
+
+      {/* Live weather notice */}
+      {weather && (
+        <div className="rounded-lg bg-sky/10 border border-sky/20 p-4 flex items-center gap-3 animate-fade-in-up">
+          <Cloud className="h-5 w-5 text-sky shrink-0" />
+          <div className="text-sm">
+            <span className="font-medium">Live weather from {weather.city}:</span>{" "}
+            {Math.round(weather.temp)}°C, {weather.humidity}% humidity — {weather.description}.
+            {weatherGrowthAdj > 0 && (
+              <span className="text-muted-foreground"> Growth estimates adjusted by +{weatherGrowthAdj} days due to conditions.</span>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Step 1: Select previous crop */}
       <div className="space-y-4">
@@ -147,10 +170,11 @@ export default function Recommend() {
               </div>
             )}
 
-            {harvestInfo && getWeatherAdjustment(location) !== 0 && (
+            {harvestInfo && (getWeatherAdjustment(location) !== 0 || weatherGrowthAdj > 0) && (
               <p className="text-xs text-muted-foreground flex items-center gap-1.5">
                 <TrendingUp className="h-3.5 w-3.5" />
-                Weather adjustment for {location}: {getWeatherAdjustment(location) > 0 ? "+" : ""}{getWeatherAdjustment(location)} days due to local climate conditions.
+                Adjustments: {getWeatherAdjustment(location) !== 0 && `${location}: ${getWeatherAdjustment(location) > 0 ? "+" : ""}${getWeatherAdjustment(location)} days`}
+                {weatherGrowthAdj > 0 && ` · Live weather: +${weatherGrowthAdj} days`}
               </p>
             )}
           </div>
@@ -173,6 +197,7 @@ export default function Recommend() {
                 { label: "Fertilizer", value: selectedCropInfo.fertilizer, icon: "🧪" },
                 { label: "Growth Duration", value: `${selectedCropInfo.growthDays} days`, icon: "⏱️" },
                 { label: "Season", value: selectedCropInfo.season, icon: "☀️" },
+                { label: "Best Month to Plant", value: selectedCropInfo.plantMonth, icon: "📅" },
                 { label: "Yield", value: `${selectedCropInfo.yieldPerHectare} per hectare`, icon: "📦" },
               ].map((item) => (
                 <div key={item.label} className="flex items-start gap-3 rounded-lg bg-muted/50 p-4">
