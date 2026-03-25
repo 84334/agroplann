@@ -119,6 +119,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Black rot", "Clubroot", "Downy mildew"],
     yieldPerHectare: "30–60 tons",
     season: "Cool season",
+    plantMonth: "August – October",
     description: "A cool-season brassica ideal for crop rotation after legumes.",
   },
   palm: {
