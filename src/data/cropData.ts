@@ -93,6 +93,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Cassava mosaic", "Bacterial blight", "Root rot"],
     yieldPerHectare: "10–25 tons",
     season: "Year-round in tropics",
+    plantMonth: "Year-round (start of rainy season preferred)",
     description: "A hardy root crop and staple food in tropical regions, very drought-resistant.",
   },
   peanut: {
