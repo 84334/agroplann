@@ -5,6 +5,7 @@ interface WeatherWidgetProps {
   weather: WeatherData | null;
   loading: boolean;
   error: string | null;
+  coordinates?: { lat: number; lon: number } | null;
 }
 
 export default function WeatherWidget({ weather, loading, error }: WeatherWidgetProps) {
