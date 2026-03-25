@@ -277,6 +277,21 @@ export default function Timetable() {
                 {/* Growth stages timeline */}
                 <GrowthStageTimeline crop={crop} stages={stages} plantingDate={new Date(p.plantingDate)} />
 
+                {/* Live growth animation */}
+                <CropGrowthAnimation
+                  crop={crop}
+                  plantingDate={new Date(p.plantingDate)}
+                  growthDays={p.growthDays}
+                  weatherMultiplier={
+                    forecast
+                      ? (() => {
+                          const suit = checkCropWeatherSuitability(p.cropKey, forecast);
+                          return suit ? suit.yieldMultiplier : 1;
+                        })()
+                      : 1
+                  }
+                />
+
                 {/* Harvest highlight */}
                 <div className="rounded-lg bg-primary/10 border border-primary/20 p-3 flex items-center gap-3">
                   <span className="text-2xl">🎉</span>
