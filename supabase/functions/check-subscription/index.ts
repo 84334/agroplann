@@ -62,8 +62,12 @@ serve(async (req) => {
 
     if (hasActiveSub) {
       const subscription = subscriptions.data[0];
-      subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
-      logStep("Active subscription found", { subscriptionId: subscription.id });
+      const endTimestamp = subscription.current_period_end;
+      logStep("Subscription end timestamp", { endTimestamp, type: typeof endTimestamp });
+      if (endTimestamp && typeof endTimestamp === 'number') {
+        subscriptionEnd = new Date(endTimestamp * 1000).toISOString();
+      }
+      logStep("Active subscription found", { subscriptionId: subscription.id, subscriptionEnd });
     }
 
     return new Response(JSON.stringify({
