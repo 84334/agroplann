@@ -80,6 +80,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Early blight", "Late blight", "Bacterial wilt"],
     yieldPerHectare: "40–80 tons",
     season: "Warm season",
+    plantMonth: "April – June",
     description: "A versatile fruit crop popular in tropical and temperate regions.",
   },
   cassava: {
