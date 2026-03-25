@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
-import { Lightbulb, CalendarDays, BookOpen, TrendingUp, Sprout, ArrowRight } from "lucide-react";
+import { Lightbulb, CalendarDays, BookOpen, TrendingUp, Sprout, ArrowRight, Calculator } from "lucide-react";
 import heroImage from "@/assets/hero-farm.jpg";
+import WeatherWidget from "@/components/WeatherWidget";
+import { useGeolocation, useWeather } from "@/hooks/useWeather";
 
 const features = [
   {
     icon: Lightbulb,
     title: "Smart Recommendations",
-    desc: "Get AI-powered next-crop suggestions based on soil science and rotation principles.",
+    desc: "Get science-backed next-crop suggestions based on soil science and rotation principles.",
     link: "/recommend",
     color: "bg-primary/10 text-primary",
   },
@@ -25,15 +27,18 @@ const features = [
     color: "bg-sky/10 text-sky",
   },
   {
-    icon: TrendingUp,
-    title: "Harvest Prediction",
-    desc: "Estimate harvest dates and yield based on planting data and location.",
-    link: "/recommend",
-    color: "bg-earth/10 text-earth",
+    icon: Calculator,
+    title: "Profit Predictions",
+    desc: "Estimate yield, revenue, and profit from your crop and input costs.",
+    link: "/predictions",
+    color: "bg-leaf/10 text-leaf",
   },
 ];
 
 export default function Index() {
+  const { location, error: geoError, loading: geoLoading } = useGeolocation();
+  const { weather, loading: weatherLoading, error: weatherError } = useWeather(location);
+
   return (
     <div>
       {/* Hero */}
@@ -72,29 +77,42 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="container py-16 md:py-24">
-        <div className="text-center mb-12">
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">Everything You Need to Farm Smart</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            From crop recommendations to harvest predictions, AgroPlan equips farmers with tools for sustainable and productive agriculture.
-          </p>
+      {/* Weather + Features */}
+      <section className="container py-16 md:py-24 space-y-12">
+        {/* Weather Widget */}
+        <div className="max-w-md">
+          <h2 className="font-display text-2xl font-bold mb-4">🌤️ Local Weather</h2>
+          <WeatherWidget
+            weather={weather}
+            loading={geoLoading || weatherLoading}
+            error={geoError || weatherError}
+          />
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((f, i) => (
-            <Link
-              key={f.title}
-              to={f.link}
-              className="group rounded-xl border bg-card p-6 transition-all hover:shadow-lg hover:-translate-y-1"
-              style={{ animationDelay: `${i * 100}ms` }}
-            >
-              <div className={`inline-flex rounded-lg p-3 mb-4 ${f.color}`}>
-                <f.icon className="h-6 w-6" />
-              </div>
-              <h3 className="font-display text-lg font-semibold mb-2">{f.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-            </Link>
-          ))}
+
+        {/* Features */}
+        <div>
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">Everything You Need to Farm Smart</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              From crop recommendations to harvest predictions, AgroPlan equips farmers with tools for sustainable and productive agriculture.
+            </p>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {features.map((f, i) => (
+              <Link
+                key={f.title}
+                to={f.link}
+                className="group rounded-xl border bg-card p-6 transition-all hover:shadow-lg hover:-translate-y-1"
+                style={{ animationDelay: `${i * 100}ms` }}
+              >
+                <div className={`inline-flex rounded-lg p-3 mb-4 ${f.color}`}>
+                  <f.icon className="h-6 w-6" />
+                </div>
+                <h3 className="font-display text-lg font-semibold mb-2">{f.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
