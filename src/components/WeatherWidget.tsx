@@ -21,10 +21,18 @@ export default function WeatherWidget({ weather, loading, error, coordinates }: 
 
   if (error) {
     return (
-      <div className="rounded-xl border bg-card p-6">
+      <div className="rounded-xl border bg-card p-6 space-y-3">
+        {coordinates && (
+          <div className="flex items-center gap-2">
+            <MapPin className="h-4 w-4 text-primary" />
+            <p className="text-sm font-medium">
+              📍 Your Location: {coordinates.lat.toFixed(4)}°N, {coordinates.lon.toFixed(4)}°E
+            </p>
+          </div>
+        )}
         <p className="text-sm text-muted-foreground flex items-center gap-2">
           <Cloud className="h-4 w-4" />
-          Weather unavailable: {error}
+          Weather unavailable — your API key may still be activating. Try again shortly.
         </p>
       </div>
     );
