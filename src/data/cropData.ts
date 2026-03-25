@@ -54,6 +54,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Rice blast", "Bacterial leaf blight", "Sheath blight"],
     yieldPerHectare: "4–8 tons",
     season: "Monsoon / Wet season",
+    plantMonth: "June – August",
     description: "The world's most important food crop, grown in flooded paddy fields.",
   },
   spinach: {
