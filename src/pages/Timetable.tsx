@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { crops, rotationRules } from "@/data/cropData";
 import { getCropStages, GrowthStage } from "@/lib/cropStages";
-import { CalendarDays, Plus, Trash2, ArrowRight, Lightbulb, CloudRain } from "lucide-react";
+import { CalendarDays, Plus, Trash2, ArrowRight, Lightbulb, CloudRain, Lock, Sparkles } from "lucide-react";
 import { addDays, format } from "date-fns";
 import { useGeolocation } from "@/hooks/useWeather";
 import { useForecast } from "@/hooks/useForecast";
 import { checkCropWeatherSuitability, getSuitabilityLabel } from "@/lib/weatherCropEngine";
+import { useSubscription } from "@/hooks/useSubscription";
+import { useAuth } from "@/hooks/useAuth";
 import GrowthStageTimeline from "@/components/GrowthStageTimeline";
 import CropGrowthAnimation from "@/components/CropGrowthAnimation";
 import TimetableCalendar from "@/components/TimetableCalendar";
@@ -24,9 +27,16 @@ export default function Timetable() {
   const [addingCrop, setAddingCrop] = useState("");
   const [addingDate, setAddingDate] = useState("");
   const [calendarMonth, setCalendarMonth] = useState(new Date());
+  const navigate = useNavigate();
 
+  const { user } = useAuth();
+  const { isProUser, loading: subLoading } = useSubscription();
   const { location: geoLoc } = useGeolocation();
   const { forecast } = useForecast(geoLoc);
+
+  const FREE_CROP_LIMIT = 2;
+  const canAddMore = isProUser || planned.length < FREE_CROP_LIMIT;
+  const showCalendar = isProUser;
 
   // Get suggestions based on last planned crop
   const lastPlanned = planned[planned.length - 1];
@@ -183,7 +193,7 @@ export default function Timetable() {
           <div className="flex items-end">
             <button
               onClick={addCrop}
-              disabled={!addingCrop || !addingDate}
+              disabled={!addingCrop || !addingDate || !canAddMore}
               className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
             >
               <Plus className="h-4 w-4 inline mr-1" />
@@ -191,6 +201,24 @@ export default function Timetable() {
             </button>
           </div>
         </div>
+
+        {/* Free user limit warning */}
+        {!isProUser && planned.length >= FREE_CROP_LIMIT && (
+          <div className="rounded-lg border border-accent/30 bg-accent/5 p-4 flex items-center gap-3">
+            <Lock className="h-5 w-5 text-accent shrink-0" />
+            <div className="flex-1">
+              <p className="text-sm font-medium">Free plan limited to {FREE_CROP_LIMIT} crops</p>
+              <p className="text-xs text-muted-foreground">Upgrade to Pro for unlimited crops, AI chat, and more.</p>
+            </div>
+            <button
+              onClick={() => navigate("/pricing")}
+              className="shrink-0 rounded-lg bg-accent px-4 py-2 text-xs font-medium text-accent-foreground hover:bg-accent/90"
+            >
+              <Sparkles className="h-3 w-3 inline mr-1" />
+              Upgrade
+            </button>
+          </div>
+        )}
 
         {/* Weather suitability for selected crop */}
         {addingCrop && forecast && (() => {
@@ -305,17 +333,27 @@ export default function Timetable() {
           })}
 
           {/* Calendar View */}
-          <div className="space-y-4">
-            <h2 className="font-display text-xl font-semibold flex items-center gap-2">
-              <CalendarDays className="h-5 w-5 text-primary" />
-              Calendar View
-            </h2>
-            <TimetableCalendar
-              entries={calendarEntries}
-              month={calendarMonth}
-              onMonthChange={setCalendarMonth}
-            />
-          </div>
+          {showCalendar ? (
+            <div className="space-y-4">
+              <h2 className="font-display text-xl font-semibold flex items-center gap-2">
+                <CalendarDays className="h-5 w-5 text-primary" />
+                Calendar View
+              </h2>
+              <TimetableCalendar
+                entries={calendarEntries}
+                month={calendarMonth}
+                onMonthChange={setCalendarMonth}
+              />
+            </div>
+          ) : (
+            <div className="rounded-xl border border-dashed bg-muted/30 p-8 text-center">
+              <Lock className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
+              <p className="text-sm font-medium text-muted-foreground">Calendar View is a Pro feature</p>
+              <button onClick={() => navigate("/pricing")} className="mt-3 rounded-lg bg-primary px-4 py-2 text-xs font-medium text-primary-foreground hover:bg-primary/90">
+                <Sparkles className="h-3 w-3 inline mr-1" />Upgrade to Pro
+              </button>
+            </div>
+          )}
         </div>
       )}
 

@@ -11,6 +11,8 @@ import Timetable from "./pages/Timetable";
 import CropGuide from "./pages/CropGuide";
 import Predictions from "./pages/Predictions";
 import Auth from "./pages/Auth";
+import AiChat from "./pages/AiChat";
+import Pricing from "./pages/Pricing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +31,8 @@ const App = () => (
               <Route path="/timetable" element={<Timetable />} />
               <Route path="/guide" element={<CropGuide />} />
               <Route path="/predictions" element={<Predictions />} />
+              <Route path="/ai-chat" element={<AiChat />} />
+              <Route path="/pricing" element={<Pricing />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
