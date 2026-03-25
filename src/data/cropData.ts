@@ -67,6 +67,7 @@ export const crops: Record<string, CropInfo> = {
     diseases: ["Downy mildew", "Leaf spot", "Fusarium wilt"],
     yieldPerHectare: "10–15 tons",
     season: "Cool season (Fall–Spring)",
+    plantMonth: "September – November",
     description: "A fast-growing leafy green packed with iron and vitamins.",
   },
   tomato: {
