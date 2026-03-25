@@ -1,6 +1,81 @@
 import { useState } from "react";
 import { crops } from "@/data/cropData";
-import { Search } from "lucide-react";
+import { Search, ExternalLink, Play, BookOpen } from "lucide-react";
+
+const farmerTips = [
+  {
+    emoji: "🧪",
+    title: "Test Your Soil",
+    description: "Know your soil pH and nutrient levels before planting. This helps you choose the right fertilizer and crops.",
+    link: "https://www.youtube.com/watch?v=kDJvHzGMfzY",
+    linkLabel: "Watch Tutorial",
+    type: "video" as const,
+  },
+  {
+    emoji: "🌿",
+    title: "Mulch Your Beds",
+    description: "Add organic mulch around plants to retain moisture, suppress weeds, and regulate soil temperature.",
+    link: "https://www.youtube.com/watch?v=Kf6CGj7xpFE",
+    linkLabel: "Watch Tutorial",
+    type: "video" as const,
+  },
+  {
+    emoji: "🐞",
+    title: "Natural Pest Control",
+    description: "Use companion planting, neem oil, or introduce beneficial insects instead of chemical pesticides.",
+    link: "https://www.almanac.com/pest-control-natural-pesticides",
+    linkLabel: "Read Article",
+    type: "article" as const,
+  },
+  {
+    emoji: "💧",
+    title: "Water Early Morning",
+    description: "Watering in the early morning reduces evaporation and gives plants time to absorb moisture before the heat.",
+    link: "https://www.youtube.com/watch?v=2v5fptCkJOE",
+    linkLabel: "Watch Tutorial",
+    type: "video" as const,
+  },
+  {
+    emoji: "🔄",
+    title: "Practice Crop Rotation",
+    description: "Rotate crop families each season to prevent soil depletion and reduce pest and disease buildup.",
+    link: "https://www.fao.org/conservation-agriculture/in-practice/crop-rotation/en/",
+    linkLabel: "Read Article",
+    type: "article" as const,
+  },
+  {
+    emoji: "🌱",
+    title: "Start with Seedlings",
+    description: "Beginners should start with seedlings instead of seeds for higher success rates on crops like tomatoes and peppers.",
+    link: "https://www.youtube.com/watch?v=B0DrWAhNdbc",
+    linkLabel: "Watch Tutorial",
+    type: "video" as const,
+  },
+  {
+    emoji: "🪱",
+    title: "Composting Basics",
+    description: "Turn kitchen scraps and yard waste into nutrient-rich compost to feed your soil naturally and reduce waste.",
+    link: "https://www.epa.gov/recycle/composting-home",
+    linkLabel: "Read Article",
+    type: "article" as const,
+  },
+  {
+    emoji: "☀️",
+    title: "Understand Sunlight Needs",
+    description: "Most vegetables need 6–8 hours of direct sunlight. Map your garden's sun exposure before planting.",
+    link: "https://www.youtube.com/watch?v=GkUEFN9TaFQ",
+    linkLabel: "Watch Tutorial",
+    type: "video" as const,
+  },
+  {
+    emoji: "📏",
+    title: "Proper Plant Spacing",
+    description: "Overcrowding leads to disease and competition for nutrients. Follow spacing guidelines for each crop.",
+    link: "https://www.almanac.com/vegetable-garden-plant-spacing",
+    linkLabel: "Read Article",
+    type: "article" as const,
+  },
+];
 
 export default function CropGuide() {
   const [search, setSearch] = useState("");
@@ -93,6 +168,36 @@ export default function CropGuide() {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Farmer Tips Section */}
+      <div className="mt-12">
+        <h2 className="font-display text-2xl md:text-3xl font-bold mb-2">🌾 Farmer Tips & Guidance</h2>
+        <p className="text-muted-foreground mb-6">Simple, beginner-friendly advice to improve your farming. Click any tip for a detailed tutorial.</p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {farmerTips.map((tip) => (
+            <a
+              key={tip.title}
+              href={tip.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col rounded-xl border bg-card p-5 transition-all hover:shadow-md hover:border-primary/30 hover:-translate-y-0.5"
+            >
+              <div className="flex items-start gap-3 mb-3">
+                <span className="text-3xl">{tip.emoji}</span>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">{tip.title}</h3>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed flex-1 mb-4">{tip.description}</p>
+              <div className="flex items-center gap-1.5 text-xs font-medium text-primary">
+                {tip.type === "video" ? <Play className="h-3.5 w-3.5" /> : <BookOpen className="h-3.5 w-3.5" />}
+                <span>{tip.linkLabel}</span>
+                <ExternalLink className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   );
