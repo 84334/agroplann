@@ -86,6 +86,7 @@ export default function Index() {
             weather={weather}
             loading={geoLoading || weatherLoading}
             error={geoError || weatherError}
+            coordinates={location}
           />
         </div>
 
