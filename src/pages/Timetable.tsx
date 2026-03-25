@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { crops, rotationRules } from "@/data/cropData";
 import { getCropStages, GrowthStage } from "@/lib/cropStages";
-import { CalendarDays, Plus, Trash2, ArrowRight, Lightbulb, CloudRain } from "lucide-react";
+import { CalendarDays, Plus, Trash2, ArrowRight, Lightbulb, CloudRain, Lock, Sparkles } from "lucide-react";
 import { addDays, format } from "date-fns";
 import { useGeolocation } from "@/hooks/useWeather";
 import { useForecast } from "@/hooks/useForecast";
 import { checkCropWeatherSuitability, getSuitabilityLabel } from "@/lib/weatherCropEngine";
+import { useSubscription } from "@/hooks/useSubscription";
+import { useAuth } from "@/hooks/useAuth";
 import GrowthStageTimeline from "@/components/GrowthStageTimeline";
 import CropGrowthAnimation from "@/components/CropGrowthAnimation";
 import TimetableCalendar from "@/components/TimetableCalendar";
@@ -24,9 +27,16 @@ export default function Timetable() {
   const [addingCrop, setAddingCrop] = useState("");
   const [addingDate, setAddingDate] = useState("");
   const [calendarMonth, setCalendarMonth] = useState(new Date());
+  const navigate = useNavigate();
 
+  const { user } = useAuth();
+  const { isProUser, loading: subLoading } = useSubscription();
   const { location: geoLoc } = useGeolocation();
   const { forecast } = useForecast(geoLoc);
+
+  const FREE_CROP_LIMIT = 2;
+  const canAddMore = isProUser || planned.length < FREE_CROP_LIMIT;
+  const showCalendar = isProUser;
 
   // Get suggestions based on last planned crop
   const lastPlanned = planned[planned.length - 1];
