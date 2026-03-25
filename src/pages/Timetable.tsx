@@ -193,7 +193,7 @@ export default function Timetable() {
           <div className="flex items-end">
             <button
               onClick={addCrop}
-              disabled={!addingCrop || !addingDate}
+              disabled={!addingCrop || !addingDate || !canAddMore}
               className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
             >
               <Plus className="h-4 w-4 inline mr-1" />
@@ -201,6 +201,24 @@ export default function Timetable() {
             </button>
           </div>
         </div>
+
+        {/* Free user limit warning */}
+        {!isProUser && planned.length >= FREE_CROP_LIMIT && (
+          <div className="rounded-lg border border-accent/30 bg-accent/5 p-4 flex items-center gap-3">
+            <Lock className="h-5 w-5 text-accent shrink-0" />
+            <div className="flex-1">
+              <p className="text-sm font-medium">Free plan limited to {FREE_CROP_LIMIT} crops</p>
+              <p className="text-xs text-muted-foreground">Upgrade to Pro for unlimited crops, AI chat, and more.</p>
+            </div>
+            <button
+              onClick={() => navigate("/pricing")}
+              className="shrink-0 rounded-lg bg-accent px-4 py-2 text-xs font-medium text-accent-foreground hover:bg-accent/90"
+            >
+              <Sparkles className="h-3 w-3 inline mr-1" />
+              Upgrade
+            </button>
+          </div>
+        )}
 
         {/* Weather suitability for selected crop */}
         {addingCrop && forecast && (() => {
