@@ -16,17 +16,17 @@ const farmerTips = [
     emoji: "🌿",
     title: "Mulch Your Beds",
     description: "Add organic mulch around plants to retain moisture, suppress weeds, and regulate soil temperature.",
-    link: "https://www.almanac.com/how-to-mulch",
-    linkLabel: "Read Article",
-    type: "article" as const,
+    link: "https://www.youtube.com/watch?v=Q3FDXbMEVHE",
+    linkLabel: "Watch Video",
+    type: "video" as const,
   },
   {
     emoji: "🐞",
     title: "Natural Pest Control",
     description: "Use companion planting, neem oil, or introduce beneficial insects instead of chemical pesticides.",
-    link: "https://www.almanac.com/pest-control-natural-pesticides",
-    linkLabel: "Read Article",
-    type: "article" as const,
+    link: "https://www.youtube.com/watch?v=IF_bOFra4kE",
+    linkLabel: "Watch Video",
+    type: "video" as const,
   },
   {
     emoji: "💧",
@@ -41,9 +41,9 @@ const farmerTips = [
     emoji: "🔄",
     title: "Practice Crop Rotation",
     description: "Rotate crop families each season to prevent soil depletion and reduce pest and disease buildup.",
-    link: "https://www.fao.org/conservation-agriculture/in-practice/crop-rotation/en/",
-    linkLabel: "Read Article",
-    type: "article" as const,
+    link: "https://www.youtube.com/watch?v=uMh0oU4MKsI",
+    linkLabel: "Watch Video",
+    type: "video" as const,
   },
   {
     emoji: "🌱",
@@ -59,9 +59,9 @@ const farmerTips = [
     title: "Composting Basics",
     description:
       "Turn kitchen scraps and yard waste into nutrient-rich compost to feed your soil naturally and reduce waste.",
-    link: "https://www.epa.gov/recycle/composting-home",
-    linkLabel: "Read Article",
-    type: "article" as const,
+    link: "https://www.youtube.com/watch?v=egyNJ7xPyoQ",
+    linkLabel: "Watch Video",
+    type: "video" as const,
   },
   {
     emoji: "☀️",
@@ -76,12 +76,11 @@ const farmerTips = [
     title: "Proper Plant Spacing",
     description:
       "Overcrowding leads to disease and competition for nutrients. Follow spacing guidelines for each crop.",
-    link: "https://www.almanac.com/vegetable-garden-plant-spacing",
-    linkLabel: "Read Article",
-    type: "article" as const,
+    link: "https://www.youtube.com/watch?v=GnF3te2LMKE",
+    linkLabel: "Watch Video",
+    type: "video" as const,
   },
 ];
-
 export default function CropGuide() {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState("corn");
