@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { crops, rotationRules, locations, getWeatherAdjustment } from "@/data/cropData";
-import { Lightbulb, Calendar, MapPin, TrendingUp, Leaf, Cloud } from "lucide-react";
+import { Lightbulb, Calendar, MapPin, TrendingUp, Leaf, Cloud, Lock } from "lucide-react";
 import { format, addDays } from "date-fns";
 import { useGeolocation, useWeather } from "@/hooks/useWeather";
 import { useForecast } from "@/hooks/useForecast";
@@ -8,6 +8,8 @@ import WeatherForecastAlert from "@/components/WeatherForecastAlert";
 import WeatherCropRecommendations from "@/components/WeatherCropRecommendations";
 import CropWeatherWarning from "@/components/CropWeatherWarning";
 import { checkCropWeatherSuitability } from "@/lib/weatherCropEngine";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export default function Recommend() {
   const [previousCrop, setPreviousCrop] = useState("");
