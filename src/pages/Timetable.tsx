@@ -78,6 +78,14 @@ export default function Timetable() {
     };
   });
 
+  if (planLoading) {
+    return (
+      <div className="container py-10 md:py-16 flex items-center justify-center min-h-[40vh]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
   return (
     <div className="container py-10 md:py-16 space-y-10">
       <div className="max-w-2xl">
