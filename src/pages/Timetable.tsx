@@ -29,7 +29,9 @@ export default function Timetable() {
     } catch { return {}; }
   });
 
-  const { addReminder, deleteReminder, getRemindersForDate } = useCalendarReminders(); = (dateKey: string, note: string) => {
+  const { addReminder, deleteReminder, getRemindersForDate } = useCalendarReminders();
+
+  const handleNoteChange = (dateKey: string, note: string) => {
     setCalendarNotes((prev) => {
       const next = { ...prev };
       if (note) next[dateKey] = note;
