@@ -20,14 +20,12 @@ interface Props {
   forecastDays?: ForecastDay[];
   notes?: Record<string, string>;
   onNoteChange?: (dateKey: string, note: string) => void;
-  reminders?: CalendarReminder[];
+  getRemindersForDate?: (dateKey: string) => CalendarReminder[];
   onAddReminder?: (date: string, time: string, message: string) => void;
   onDeleteReminder?: (id: string) => void;
-  getRemindersForDate?: (dateKey: string) => CalendarReminder[];
 }
 
 function getWeatherIcon(code: number) {
-  // Larger, bolder icons with colored backgrounds
   if (code === 0) return <Sun className="h-4.5 w-4.5 text-amber-500 drop-shadow-sm" />;
   if (code <= 3) return <Cloud className="h-4.5 w-4.5 text-slate-400 drop-shadow-sm" />;
   if (code <= 48) return <CloudFog className="h-4.5 w-4.5 text-slate-400 drop-shadow-sm" />;
@@ -64,7 +62,7 @@ function getStageForDay(entry: CalendarEntry, day: Date): { stage: GrowthStage; 
   return null;
 }
 
-export default function TimetableCalendar({ entries, month, onMonthChange, forecastDays, notes, onNoteChange, reminders, onAddReminder, onDeleteReminder, getRemindersForDate }: Props) {
+export default function TimetableCalendar({ entries, month, onMonthChange, forecastDays, notes, onNoteChange, getRemindersForDate, onAddReminder, onDeleteReminder }: Props) {
   const [editingNote, setEditingNote] = useState<string | null>(null);
   const [noteText, setNoteText] = useState("");
   const [reminderTime, setReminderTime] = useState("08:00");
@@ -99,8 +97,7 @@ export default function TimetableCalendar({ entries, month, onMonthChange, forec
     if (calendarRect) {
       const top = rect.bottom - calendarRect.top + 8;
       let left = rect.left - calendarRect.left;
-      // Keep popup within calendar bounds
-      left = Math.max(0, Math.min(left, calendarRect.width - 280));
+      left = Math.max(0, Math.min(left, calendarRect.width - 300));
       setPopupPosition({ top, left });
     }
     setEditingNote(dateKey);
@@ -108,23 +105,31 @@ export default function TimetableCalendar({ entries, month, onMonthChange, forec
     setShowReminderForm(false);
     setReminderMsg("");
     setReminderTime("08:00");
+  };
 
   const saveNote = () => {
     if (editingNote && onNoteChange) {
       onNoteChange(editingNote, noteText.trim());
     }
-    setEditingNote(null);
-    setNoteText("");
-    setPopupPosition(null);
+    closePopup();
+  };
+
+  const handleAddReminder = () => {
+    if (editingNote && onAddReminder && reminderMsg.trim()) {
+      onAddReminder(editingNote, reminderTime, reminderMsg.trim());
+      setReminderMsg("");
+      setShowReminderForm(false);
+    }
   };
 
   const closePopup = () => {
     setEditingNote(null);
     setNoteText("");
     setPopupPosition(null);
+    setShowReminderForm(false);
+    setReminderMsg("");
   };
 
-  // Close popup on outside click
   useEffect(() => {
     if (!editingNote) return;
     const handler = (e: MouseEvent) => {
@@ -168,6 +173,8 @@ export default function TimetableCalendar({ entries, month, onMonthChange, forec
           const forecast = forecastMap.get(dateKey);
           const noteContent = notes?.[dateKey];
           const hasNote = noteContent && noteContent.length > 0;
+          const dateReminders = getRemindersForDate?.(dateKey) || [];
+          const hasReminder = dateReminders.length > 0;
           const weatherBg = forecast ? getWeatherBg(forecast.weatherCode) : "";
 
           const stageInfos = entries
@@ -184,16 +191,18 @@ export default function TimetableCalendar({ entries, month, onMonthChange, forec
               } ${hasHarvest ? "ring-2 ring-primary ring-offset-1" : ""}`}
               onClick={(e) => openNoteEditor(dateKey, e)}
             >
-              {/* Date number */}
+              {/* Date number + icons */}
               <div className="flex items-center w-full justify-between">
                 <span className={`text-[11px] ${today ? "text-primary" : "text-foreground"}`}>
                   {format(day, "d")}
                 </span>
-                {/* Add note icon on hover */}
-                <Pencil className="h-2.5 w-2.5 text-muted-foreground opacity-0 group-hover:opacity-60 transition-opacity" />
+                <div className="flex items-center gap-0.5">
+                  {hasReminder && <BellRing className="h-2.5 w-2.5 text-primary animate-pulse" />}
+                  <Pencil className="h-2.5 w-2.5 text-muted-foreground opacity-0 group-hover:opacity-60 transition-opacity" />
+                </div>
               </div>
 
-              {/* Weather icon - prominent */}
+              {/* Weather icon */}
               {forecast && (
                 <div
                   className="flex items-center justify-center my-0.5"
@@ -224,7 +233,7 @@ export default function TimetableCalendar({ entries, month, onMonthChange, forec
                 <span className="text-[9px] mt-auto" title="Harvest day!">🎉</span>
               )}
 
-              {/* Note preview badge - visible without clicking */}
+              {/* Note preview badge */}
               {hasNote && (
                 <div className="absolute bottom-0 left-0 right-0 bg-amber-100 dark:bg-amber-900/50 rounded-b-lg px-1.5 py-1 flex items-center gap-1 overflow-hidden">
                   <StickyNote className="h-3 w-3 text-amber-600 dark:text-amber-400 shrink-0" />
@@ -236,11 +245,11 @@ export default function TimetableCalendar({ entries, month, onMonthChange, forec
         })}
       </div>
 
-      {/* Popup note editor */}
+      {/* Popup editor */}
       {editingNote && popupPosition && (
         <div
           ref={popupRef}
-          className="absolute z-50 w-[280px] rounded-xl border bg-card shadow-xl p-4 space-y-3 animate-fade-in-up"
+          className="absolute z-50 w-[300px] rounded-xl border bg-card shadow-xl p-4 space-y-3 animate-fade-in-up"
           style={{ top: popupPosition.top, left: popupPosition.left }}
         >
           <div className="flex items-center justify-between">
@@ -253,7 +262,7 @@ export default function TimetableCalendar({ entries, month, onMonthChange, forec
             </button>
           </div>
 
-          {/* Show forecast in popup too */}
+          {/* Forecast in popup */}
           {forecastMap.get(editingNote) && (() => {
             const f = forecastMap.get(editingNote)!;
             return (
@@ -266,12 +275,12 @@ export default function TimetableCalendar({ entries, month, onMonthChange, forec
             );
           })()}
 
+          {/* Notes section */}
           <textarea
             value={noteText}
             onChange={(e) => setNoteText(e.target.value)}
             placeholder="e.g. Apply fertilizer, Check irrigation..."
-            className="w-full rounded-md border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 min-h-[60px] resize-none"
-            autoFocus
+            className="w-full rounded-md border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 min-h-[50px] resize-none"
           />
           <div className="flex gap-2 justify-end">
             {notes?.[editingNote] && (
@@ -279,15 +288,92 @@ export default function TimetableCalendar({ entries, month, onMonthChange, forec
                 onClick={() => { onNoteChange?.(editingNote, ""); closePopup(); }}
                 className="rounded-lg px-3 py-1.5 text-xs font-medium text-destructive hover:bg-destructive/10 transition-colors"
               >
-                Delete
+                Delete Note
               </button>
             )}
             <button
               onClick={saveNote}
               className="rounded-lg bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
             >
-              Save
+              Save Note
             </button>
+          </div>
+
+          {/* Divider */}
+          <div className="border-t pt-3 space-y-2">
+            <h5 className="text-xs font-semibold flex items-center gap-1.5 text-foreground">
+              <Bell className="h-3.5 w-3.5 text-primary" />
+              Email Reminders
+            </h5>
+
+            {/* Existing reminders for this date */}
+            {(getRemindersForDate?.(editingNote) || []).map((r) => (
+              <div key={r.id} className="flex items-center justify-between rounded-lg bg-primary/5 border border-primary/20 px-2.5 py-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <BellRing className="h-3.5 w-3.5 text-primary shrink-0" />
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium truncate">{r.message}</p>
+                    <p className="text-[10px] text-muted-foreground flex items-center gap-1">
+                      <Clock className="h-2.5 w-2.5" />
+                      {r.reminder_time.slice(0, 5)}
+                      {r.sent && <span className="text-primary ml-1">✓ Sent</span>}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={(e) => { e.stopPropagation(); onDeleteReminder?.(r.id); }}
+                  className="shrink-0 rounded p-1 text-destructive hover:bg-destructive/10 transition-colors"
+                >
+                  <Trash2 className="h-3 w-3" />
+                </button>
+              </div>
+            ))}
+
+            {/* Add reminder form */}
+            {showReminderForm ? (
+              <div className="space-y-2">
+                <input
+                  type="text"
+                  value={reminderMsg}
+                  onChange={(e) => setReminderMsg(e.target.value)}
+                  placeholder="Reminder message..."
+                  className="w-full rounded-md border bg-background px-3 py-1.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  autoFocus
+                />
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 flex-1">
+                    <Clock className="h-3.5 w-3.5 text-muted-foreground" />
+                    <input
+                      type="time"
+                      value={reminderTime}
+                      onChange={(e) => setReminderTime(e.target.value)}
+                      className="rounded-md border bg-background px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
+                  <button
+                    onClick={() => setShowReminderForm(false)}
+                    className="rounded-lg px-2.5 py-1.5 text-xs text-muted-foreground hover:bg-muted transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleAddReminder}
+                    disabled={!reminderMsg.trim()}
+                    className="rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50"
+                  >
+                    Set
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowReminderForm(true)}
+                className="w-full rounded-lg border border-dashed border-primary/30 px-3 py-2 text-xs font-medium text-primary hover:bg-primary/5 transition-colors flex items-center justify-center gap-1.5"
+              >
+                <Bell className="h-3 w-3" />
+                Add Email Reminder
+              </button>
+            )}
           </div>
         </div>
       )}
@@ -306,7 +392,7 @@ export default function TimetableCalendar({ entries, month, onMonthChange, forec
             );
           })}
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground ml-auto">
-            🎉 Harvest · 📝 Note
+            🎉 Harvest · 📝 Note · 🔔 Reminder
           </div>
         </div>
       )}
