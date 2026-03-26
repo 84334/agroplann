@@ -6,10 +6,11 @@ const farmerTips = [
   {
     emoji: "🧪",
     title: "Test Your Soil",
-    description: "Know your soil pH and nutrient levels before planting. This helps you choose the right fertilizer and crops.",
+    description:
+      "Know your soil pH and nutrient levels before planting. This helps you choose the right fertilizer and crops.",
     link: "https://www.almanac.com/how-test-soil",
     linkLabel: "Read Article",
-    type: "article" as const,
+    type: "video" as const,
   },
   {
     emoji: "🌿",
@@ -30,7 +31,8 @@ const farmerTips = [
   {
     emoji: "💧",
     title: "Water Early Morning",
-    description: "Watering in the early morning reduces evaporation and gives plants time to absorb moisture before the heat.",
+    description:
+      "Watering in the early morning reduces evaporation and gives plants time to absorb moisture before the heat.",
     link: "https://www.almanac.com/watering-garden-tips",
     linkLabel: "Read Article",
     type: "article" as const,
@@ -46,7 +48,8 @@ const farmerTips = [
   {
     emoji: "🌱",
     title: "Start with Seedlings",
-    description: "Beginners should start with seedlings instead of seeds for higher success rates on crops like tomatoes and peppers.",
+    description:
+      "Beginners should start with seedlings instead of seeds for higher success rates on crops like tomatoes and peppers.",
     link: "https://www.almanac.com/starting-seeds-indoors",
     linkLabel: "Read Article",
     type: "article" as const,
@@ -54,7 +57,8 @@ const farmerTips = [
   {
     emoji: "🪱",
     title: "Composting Basics",
-    description: "Turn kitchen scraps and yard waste into nutrient-rich compost to feed your soil naturally and reduce waste.",
+    description:
+      "Turn kitchen scraps and yard waste into nutrient-rich compost to feed your soil naturally and reduce waste.",
     link: "https://www.epa.gov/recycle/composting-home",
     linkLabel: "Read Article",
     type: "article" as const,
@@ -70,7 +74,8 @@ const farmerTips = [
   {
     emoji: "📏",
     title: "Proper Plant Spacing",
-    description: "Overcrowding leads to disease and competition for nutrients. Follow spacing guidelines for each crop.",
+    description:
+      "Overcrowding leads to disease and competition for nutrients. Follow spacing guidelines for each crop.",
     link: "https://www.almanac.com/vegetable-garden-plant-spacing",
     linkLabel: "Read Article",
     type: "article" as const,
@@ -81,9 +86,7 @@ export default function CropGuide() {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState("corn");
 
-  const filtered = Object.entries(crops).filter(([, c]) =>
-    c.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = Object.entries(crops).filter(([, c]) => c.name.toLowerCase().includes(search.toLowerCase()));
 
   const info = crops[selected];
 
@@ -113,9 +116,7 @@ export default function CropGuide() {
                 key={key}
                 onClick={() => setSelected(key)}
                 className={`w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
-                  selected === key
-                    ? "bg-primary text-primary-foreground"
-                    : "hover:bg-muted text-foreground"
+                  selected === key ? "bg-primary text-primary-foreground" : "hover:bg-muted text-foreground"
                 }`}
               >
                 <span className="text-lg">{crop.emoji}</span>
@@ -162,7 +163,12 @@ export default function CropGuide() {
               <p className="text-sm font-medium mb-3">⚠️ Common Diseases</p>
               <div className="flex flex-wrap gap-2">
                 {info.diseases.map((d) => (
-                  <span key={d} className="rounded-full bg-destructive/10 px-3 py-1.5 text-xs font-medium text-destructive">{d}</span>
+                  <span
+                    key={d}
+                    className="rounded-full bg-destructive/10 px-3 py-1.5 text-xs font-medium text-destructive"
+                  >
+                    {d}
+                  </span>
                 ))}
               </div>
             </div>
@@ -173,7 +179,9 @@ export default function CropGuide() {
       {/* Farmer Tips Section */}
       <div className="mt-12">
         <h2 className="font-display text-2xl md:text-3xl font-bold mb-2">🌾 Farmer Tips & Guidance</h2>
-        <p className="text-muted-foreground mb-6">Simple, beginner-friendly advice to improve your farming. Click any tip for a detailed tutorial.</p>
+        <p className="text-muted-foreground mb-6">
+          Simple, beginner-friendly advice to improve your farming. Click any tip for a detailed tutorial.
+        </p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {farmerTips.map((tip) => (
             <a
