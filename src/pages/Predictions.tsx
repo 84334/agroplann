@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { crops } from "@/data/cropData";
 import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Calculator, TrendingUp, DollarSign, Wheat, Save } from "lucide-react";
+import { Calculator, TrendingUp, DollarSign, Wheat, Save, Lock, LogIn } from "lucide-react";
 import { toast } from "sonner";
 
 // Simple market prices per ton (USD) for estimation
@@ -20,6 +21,8 @@ const marketPrices: Record<string, number> = {
 
 export default function Predictions() {
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const [showAuthGate, setShowAuthGate] = useState(false);
   const [selectedCrop, setSelectedCrop] = useState("");
   const [landSize, setLandSize] = useState("");
   const [seedCost, setSeedCost] = useState("");
@@ -38,6 +41,15 @@ export default function Predictions() {
       return;
     }
 
+    if (!user) {
+      setShowAuthGate(true);
+      return;
+    }
+
+    runCalculation();
+  };
+
+  const runCalculation = () => {
     const crop = crops[selectedCrop];
     if (!crop) return;
 
@@ -45,7 +57,6 @@ export default function Predictions() {
     const seed = parseFloat(seedCost) || 0;
     const fert = parseFloat(fertilizerCost) || 0;
 
-    // Parse yield range (e.g., "8–12 tons" → average)
     const yieldMatch = crop.yieldPerHectare.match(/(\d+\.?\d*)[\s–-]+(\d+\.?\d*)/);
     let avgYield = 5;
     if (yieldMatch) {
@@ -58,6 +69,7 @@ export default function Predictions() {
     const totalCost = seed + fert;
     const profit = revenue - totalCost;
 
+    setShowAuthGate(false);
     setResult({ yield: estimatedYield, revenue, totalCost, profit });
   };
 
@@ -173,7 +185,22 @@ export default function Predictions() {
 
         {/* Results */}
         <div className="space-y-4">
-          {result ? (
+          {showAuthGate && !user ? (
+            <div className="rounded-xl border-2 border-dashed border-muted-foreground/30 bg-muted/30 p-8 text-center space-y-4 animate-fade-in-up">
+              <Lock className="h-10 w-10 mx-auto text-muted-foreground/50" />
+              <h3 className="font-display text-lg font-semibold">Sign in to view your results</h3>
+              <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                Your prediction is ready! Create a free account or sign in to see your yield estimates, revenue, and profit analysis.
+              </p>
+              <button
+                onClick={() => navigate("/auth")}
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+              >
+                <LogIn className="h-4 w-4" />
+                Sign in or Sign up
+              </button>
+            </div>
+          ) : result ? (
             <div className="rounded-xl border bg-card p-6 space-y-5 animate-fade-in-up">
               <h2 className="font-display text-xl font-semibold flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-primary" />
@@ -212,22 +239,14 @@ export default function Predictions() {
                 </div>
               )}
 
-              {user && (
-                <button
-                  onClick={savePrediction}
-                  disabled={saving}
-                  className="w-full flex items-center justify-center gap-2 rounded-lg border-2 border-primary px-4 py-2.5 font-medium text-primary transition-colors hover:bg-primary/5 disabled:opacity-50"
-                >
-                  <Save className="h-4 w-4" />
-                  {saving ? "Saving..." : "Save Prediction"}
-                </button>
-              )}
-
-              {!user && (
-                <p className="text-xs text-muted-foreground text-center">
-                  Sign in to save your predictions
-                </p>
-              )}
+              <button
+                onClick={savePrediction}
+                disabled={saving}
+                className="w-full flex items-center justify-center gap-2 rounded-lg border-2 border-primary px-4 py-2.5 font-medium text-primary transition-colors hover:bg-primary/5 disabled:opacity-50"
+              >
+                <Save className="h-4 w-4" />
+                {saving ? "Saving..." : "Save Prediction"}
+              </button>
             </div>
           ) : (
             <div className="rounded-xl border border-dashed bg-muted/30 p-12 text-center">
