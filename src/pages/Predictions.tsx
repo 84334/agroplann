@@ -41,6 +41,15 @@ export default function Predictions() {
       return;
     }
 
+    if (!user) {
+      setShowAuthGate(true);
+      return;
+    }
+
+    runCalculation();
+  };
+
+  const runCalculation = () => {
     const crop = crops[selectedCrop];
     if (!crop) return;
 
@@ -48,7 +57,6 @@ export default function Predictions() {
     const seed = parseFloat(seedCost) || 0;
     const fert = parseFloat(fertilizerCost) || 0;
 
-    // Parse yield range (e.g., "8–12 tons" → average)
     const yieldMatch = crop.yieldPerHectare.match(/(\d+\.?\d*)[\s–-]+(\d+\.?\d*)/);
     let avgYield = 5;
     if (yieldMatch) {
@@ -61,6 +69,7 @@ export default function Predictions() {
     const totalCost = seed + fert;
     const profit = revenue - totalCost;
 
+    setShowAuthGate(false);
     setResult({ yield: estimatedYield, revenue, totalCost, profit });
   };
 
