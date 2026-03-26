@@ -40,8 +40,13 @@ export default function Timetable() {
 
   const addCrop = () => {
     if (!addingCrop || !addingDate) return;
+    if (!user) {
+      setShowAuthGate(true);
+      return;
+    }
     const crop = crops[addingCrop];
     if (!crop) return;
+    setShowAuthGate(false);
     setPlanned((prev) => [
       ...prev,
       {
