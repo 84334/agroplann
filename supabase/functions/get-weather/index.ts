@@ -72,17 +72,11 @@ serve(async (req) => {
     const current = weatherData.current;
     const { description, icon } = getWeatherInfo(current.weather_code);
 
-    // Extract best location name from Nominatim
+    // Extract location details from Nominatim
     const address = geoData.address || {};
-    const city =
-      address.city ||
-      address.town ||
-      address.village ||
-      address.suburb ||
-      address.county ||
-      address.state_district ||
-      geoData.name ||
-      'Unknown';
+    const town = address.village || address.suburb || address.town || '';
+    const city = address.city || address.county || address.state_district || '';
+    const displayName = town && city ? `${town}, ${city}` : town || city || geoData.name || 'Unknown';
     const country = address.country_code?.toUpperCase() || '';
 
     return new Response(JSON.stringify({
@@ -92,7 +86,7 @@ serve(async (req) => {
       icon,
       windSpeed: current.wind_speed_10m,
       feelsLike: current.apparent_temperature,
-      city,
+      city: displayName,
       country,
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
