@@ -3,7 +3,8 @@ import { addDays, format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay
 import { GrowthStage } from "@/lib/cropStages";
 import { CropInfo } from "@/data/cropData";
 import { ForecastDay } from "@/hooks/useForecast";
-import { Sun, Cloud, CloudRain, CloudSnow, CloudLightning, CloudFog, CloudDrizzle, Wind, StickyNote, X, Pencil } from "lucide-react";
+import { CalendarReminder } from "@/hooks/useCalendarReminders";
+import { Sun, Cloud, CloudRain, CloudSnow, CloudLightning, CloudFog, CloudDrizzle, Wind, StickyNote, X, Pencil, Bell, BellRing, Trash2, Clock } from "lucide-react";
 
 interface CalendarEntry {
   cropKey: string;
@@ -19,6 +20,10 @@ interface Props {
   forecastDays?: ForecastDay[];
   notes?: Record<string, string>;
   onNoteChange?: (dateKey: string, note: string) => void;
+  reminders?: CalendarReminder[];
+  onAddReminder?: (date: string, time: string, message: string) => void;
+  onDeleteReminder?: (id: string) => void;
+  getRemindersForDate?: (dateKey: string) => CalendarReminder[];
 }
 
 function getWeatherIcon(code: number) {
@@ -59,7 +64,7 @@ function getStageForDay(entry: CalendarEntry, day: Date): { stage: GrowthStage; 
   return null;
 }
 
-export default function TimetableCalendar({ entries, month, onMonthChange, forecastDays, notes, onNoteChange }: Props) {
+export default function TimetableCalendar({ entries, month, onMonthChange, forecastDays, notes, onNoteChange, reminders, onAddReminder, onDeleteReminder, getRemindersForDate }: Props) {
   const [editingNote, setEditingNote] = useState<string | null>(null);
   const [noteText, setNoteText] = useState("");
   const popupRef = useRef<HTMLDivElement>(null);
