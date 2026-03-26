@@ -40,6 +40,7 @@ export default function WeatherWidget({ weather, loading, error, coordinates }: 
 
   if (!weather) return null;
 
+  // Use open-meteo WMO codes mapped to OWM icon names for display
   const iconUrl = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
 
   return (
