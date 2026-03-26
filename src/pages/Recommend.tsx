@@ -266,7 +266,7 @@ export default function Recommend() {
       )}
 
       {/* Step 4: Farming Guide */}
-      {selectedRec && selectedCropInfo && (
+      {selectedRec && selectedCropInfo && user && (
         <div className="space-y-4 animate-fade-in-up">
           <h2 className="font-display text-xl font-semibold flex items-center gap-2">
             <span className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-primary text-primary-foreground text-sm font-bold">4</span>
