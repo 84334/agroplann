@@ -21,6 +21,7 @@ export default function Timetable() {
   const [addingCrop, setAddingCrop] = useState("");
   const [addingDate, setAddingDate] = useState("");
   const [calendarMonth, setCalendarMonth] = useState(new Date());
+  const [showAuthGate, setShowAuthGate] = useState(false);
   const navigate = useNavigate();
 
   const { user } = useAuth();
