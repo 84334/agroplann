@@ -67,6 +67,9 @@ function getStageForDay(entry: CalendarEntry, day: Date): { stage: GrowthStage; 
 export default function TimetableCalendar({ entries, month, onMonthChange, forecastDays, notes, onNoteChange, reminders, onAddReminder, onDeleteReminder, getRemindersForDate }: Props) {
   const [editingNote, setEditingNote] = useState<string | null>(null);
   const [noteText, setNoteText] = useState("");
+  const [reminderTime, setReminderTime] = useState("08:00");
+  const [reminderMsg, setReminderMsg] = useState("");
+  const [showReminderForm, setShowReminderForm] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
   const [popupPosition, setPopupPosition] = useState<{ top: number; left: number } | null>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
