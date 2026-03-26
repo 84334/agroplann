@@ -44,18 +44,11 @@ export default function WeatherWidget({ weather, loading, error, coordinates }: 
 
   return (
     <div className="rounded-xl border bg-card p-6">
-      <div className="mb-4">
-        <div className="flex items-center gap-2">
-          <MapPin className="h-4 w-4 text-primary" />
-          <h3 className="font-display text-lg font-semibold">
-            {weather.city}, {weather.country}
-          </h3>
-        </div>
-        {coordinates && (
-          <p className="text-xs text-muted-foreground mt-1 ml-6">
-            📍 {coordinates.lat.toFixed(4)}°N, {coordinates.lon.toFixed(4)}°E
-          </p>
-        )}
+      <div className="flex items-center gap-2 mb-4">
+        <MapPin className="h-4 w-4 text-primary" />
+        <h3 className="font-display text-lg font-semibold">
+          {weather.city}, {weather.country}
+        </h3>
       </div>
 
       <div className="flex items-center gap-4 mb-4">
