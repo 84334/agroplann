@@ -12,6 +12,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 export default function Recommend() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [previousCrop, setPreviousCrop] = useState("");
   const [selectedRec, setSelectedRec] = useState("");
   const [plantingDate, setPlantingDate] = useState("");
