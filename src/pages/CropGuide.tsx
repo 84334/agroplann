@@ -8,8 +8,8 @@ const farmerTips = [
     title: "Test Your Soil",
     description:
       "Know your soil pH and nutrient levels before planting. This helps you choose the right fertilizer and crops.",
-    link: "https://www.almanac.com/how-test-soil",
-    linkLabel: "Read Article",
+    link: "https://youtu.be/UoD-cUMkRZY?si=aQSXESgSVHRc_A11",
+    linkLabel: "Watch Video",
     type: "video" as const,
   },
   {
