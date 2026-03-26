@@ -216,9 +216,9 @@ export default function TimetableCalendar({ entries, month, onMonthChange, forec
 
               {/* Note preview badge - visible without clicking */}
               {hasNote && (
-                <div className="absolute bottom-0 left-0 right-0 bg-amber-100 dark:bg-amber-900/50 rounded-b-lg px-1 py-[1px] flex items-center gap-0.5 overflow-hidden">
-                  <StickyNote className="h-2 w-2 text-amber-600 dark:text-amber-400 shrink-0" />
-                  <span className="text-[7px] text-amber-700 dark:text-amber-300 truncate leading-tight">{noteContent}</span>
+                <div className="absolute bottom-0 left-0 right-0 bg-amber-100 dark:bg-amber-900/50 rounded-b-lg px-1.5 py-1 flex items-center gap-1 overflow-hidden">
+                  <StickyNote className="h-3 w-3 text-amber-600 dark:text-amber-400 shrink-0" />
+                  <span className="text-[9px] font-medium text-amber-700 dark:text-amber-300 truncate leading-snug">{noteContent}</span>
                 </div>
               )}
             </div>
