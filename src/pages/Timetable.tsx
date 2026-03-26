@@ -228,7 +228,31 @@ export default function Timetable() {
           </div>
         )}
 
-        {/* Weather suitability for selected crop */}
+        {/* Auth gate for unauthenticated users */}
+        {showAuthGate && !user && (
+          <div className="rounded-xl border-2 border-primary/30 bg-primary/5 p-6 space-y-3 animate-fade-in-up">
+            <div className="flex items-center gap-3">
+              <div className="rounded-full bg-primary/10 p-3">
+                <Lock className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-display font-semibold text-lg">Sign in to manage your timetable</h3>
+                <p className="text-sm text-muted-foreground">
+                  Adding and managing timetable entries is a personalized feature available only for registered users. Sign in to save your crop rotation plans and access them anytime.
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => navigate("/auth")}
+              className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 flex items-center gap-2"
+            >
+              <LogIn className="h-4 w-4" />
+              Sign in or Sign up
+            </button>
+          </div>
+        )}
+
+
         {addingCrop && forecast && (() => {
           const suit = checkCropWeatherSuitability(addingCrop, forecast);
           if (!suit) return null;
