@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { crops, rotationRules } from "@/data/cropData";
 import { getCropStages, GrowthStage } from "@/lib/cropStages";
-import { CalendarDays, Plus, Trash2, ArrowRight, Lightbulb, CloudRain, Lock, Sparkles } from "lucide-react";
+import { CalendarDays, Plus, Trash2, ArrowRight, Lightbulb, CloudRain, Lock, Sparkles, Loader2 } from "lucide-react";
 import { addDays, format } from "date-fns";
 import { useGeolocation } from "@/hooks/useWeather";
 import { useForecast } from "@/hooks/useForecast";
@@ -12,18 +12,12 @@ import { useAuth } from "@/hooks/useAuth";
 import GrowthStageTimeline from "@/components/GrowthStageTimeline";
 import CropGrowthAnimation from "@/components/CropGrowthAnimation";
 import TimetableCalendar from "@/components/TimetableCalendar";
-
-interface PlannedCrop {
-  id: string;
-  cropKey: string;
-  plantingDate: string; // ISO string
-  growthDays: number; // allow user adjustment
-}
+import { useTimetablePersistence } from "@/hooks/useTimetablePersistence";
 
 const colorBars = ["bg-primary/80", "bg-leaf/80", "bg-sky/80", "bg-accent/80", "bg-earth/80"];
 
 export default function Timetable() {
-  const [planned, setPlanned] = useState<PlannedCrop[]>([]);
+  const { planned, setPlanned, loading: planLoading } = useTimetablePersistence();
   const [addingCrop, setAddingCrop] = useState("");
   const [addingDate, setAddingDate] = useState("");
   const [calendarMonth, setCalendarMonth] = useState(new Date());
@@ -83,6 +77,14 @@ export default function Timetable() {
       stages,
     };
   });
+
+  if (planLoading) {
+    return (
+      <div className="container py-10 md:py-16 flex items-center justify-center min-h-[40vh]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="container py-10 md:py-16 space-y-10">
