@@ -21,7 +21,8 @@ const marketPrices: Record<string, number> = {
 
 export default function Predictions() {
   const { user } = useAuth();
-  const [selectedCrop, setSelectedCrop] = useState("");
+  const navigate = useNavigate();
+  const [showAuthGate, setShowAuthGate] = useState(false);
   const [landSize, setLandSize] = useState("");
   const [seedCost, setSeedCost] = useState("");
   const [fertilizerCost, setFertilizerCost] = useState("");
