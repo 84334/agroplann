@@ -23,6 +23,7 @@ export default function Predictions() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [showAuthGate, setShowAuthGate] = useState(false);
+  const [selectedCrop, setSelectedCrop] = useState("");
   const [landSize, setLandSize] = useState("");
   const [seedCost, setSeedCost] = useState("");
   const [fertilizerCost, setFertilizerCost] = useState("");
