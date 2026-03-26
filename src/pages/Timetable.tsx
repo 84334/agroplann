@@ -22,6 +22,21 @@ export default function Timetable() {
   const [addingDate, setAddingDate] = useState("");
   const [calendarMonth, setCalendarMonth] = useState(new Date());
   const [showAuthGate, setShowAuthGate] = useState(false);
+  const [calendarNotes, setCalendarNotes] = useState<Record<string, string>>(() => {
+    try {
+      return JSON.parse(localStorage.getItem("agroplan_calendar_notes") || "{}");
+    } catch { return {}; }
+  });
+
+  const handleNoteChange = (dateKey: string, note: string) => {
+    setCalendarNotes((prev) => {
+      const next = { ...prev };
+      if (note) next[dateKey] = note;
+      else delete next[dateKey];
+      localStorage.setItem("agroplan_calendar_notes", JSON.stringify(next));
+      return next;
+    });
+  };
   const navigate = useNavigate();
 
   const { user } = useAuth();
