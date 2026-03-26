@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { crops, rotationRules, locations, getWeatherAdjustment } from "@/data/cropData";
-import { Lightbulb, Calendar, MapPin, TrendingUp, Leaf, Cloud } from "lucide-react";
+import { Lightbulb, Calendar, MapPin, TrendingUp, Leaf, Cloud, Lock } from "lucide-react";
 import { format, addDays } from "date-fns";
 import { useGeolocation, useWeather } from "@/hooks/useWeather";
 import { useForecast } from "@/hooks/useForecast";
@@ -8,8 +8,12 @@ import WeatherForecastAlert from "@/components/WeatherForecastAlert";
 import WeatherCropRecommendations from "@/components/WeatherCropRecommendations";
 import CropWeatherWarning from "@/components/CropWeatherWarning";
 import { checkCropWeatherSuitability } from "@/lib/weatherCropEngine";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export default function Recommend() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [previousCrop, setPreviousCrop] = useState("");
   const [selectedRec, setSelectedRec] = useState("");
   const [plantingDate, setPlantingDate] = useState("");
@@ -169,7 +173,28 @@ export default function Recommend() {
       )}
 
       {/* Step 3: Harvest Prediction */}
-      {selectedRec && selectedCropInfo && (
+      {selectedRec && selectedCropInfo && !user && (
+        <div className="space-y-4 animate-fade-in-up">
+          <h2 className="font-display text-xl font-semibold flex items-center gap-2">
+            <span className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-primary text-primary-foreground text-sm font-bold">3</span>
+            Harvest Prediction
+          </h2>
+          <div className="rounded-xl border-2 border-dashed border-muted-foreground/30 bg-muted/30 p-8 text-center space-y-4">
+            <Lock className="h-10 w-10 mx-auto text-muted-foreground/50" />
+            <h3 className="font-display text-lg font-semibold">Sign in to unlock Harvest Prediction</h3>
+            <p className="text-sm text-muted-foreground max-w-md mx-auto">
+              Get personalized harvest dates, weather-adjusted yield estimates, and detailed farming guides by creating a free account.
+            </p>
+            <button
+              onClick={() => navigate("/auth")}
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+            >
+              Sign in or Sign up
+            </button>
+          </div>
+        </div>
+      )}
+      {selectedRec && selectedCropInfo && user && (
         <div className="space-y-4 animate-fade-in-up">
           <h2 className="font-display text-xl font-semibold flex items-center gap-2">
             <span className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-primary text-primary-foreground text-sm font-bold">3</span>
@@ -241,7 +266,7 @@ export default function Recommend() {
       )}
 
       {/* Step 4: Farming Guide */}
-      {selectedRec && selectedCropInfo && (
+      {selectedRec && selectedCropInfo && user && (
         <div className="space-y-4 animate-fade-in-up">
           <h2 className="font-display text-xl font-semibold flex items-center gap-2">
             <span className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-primary text-primary-foreground text-sm font-bold">4</span>
