@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { crops } from "@/data/cropData";
 import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Calculator, TrendingUp, DollarSign, Wheat, Save } from "lucide-react";
+import { Calculator, TrendingUp, DollarSign, Wheat, Save, Lock, LogIn } from "lucide-react";
 import { toast } from "sonner";
 
 // Simple market prices per ton (USD) for estimation
