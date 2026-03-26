@@ -105,7 +105,9 @@ export default function TimetableCalendar({ entries, month, onMonthChange, forec
     }
     setEditingNote(dateKey);
     setNoteText(notes?.[dateKey] || "");
-  };
+    setShowReminderForm(false);
+    setReminderMsg("");
+    setReminderTime("08:00");
 
   const saveNote = () => {
     if (editingNote && onNoteChange) {
