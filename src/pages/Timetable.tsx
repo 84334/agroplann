@@ -390,6 +390,9 @@ export default function Timetable() {
                 entries={calendarEntries}
                 month={calendarMonth}
                 onMonthChange={setCalendarMonth}
+                forecastDays={forecast?.days}
+                notes={calendarNotes}
+                onNoteChange={handleNoteChange}
               />
             </div>
           ) : (
