@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { crops, rotationRules } from "@/data/cropData";
 import { getCropStages, GrowthStage } from "@/lib/cropStages";
-import { CalendarDays, Plus, Trash2, ArrowRight, Lightbulb, CloudRain, Lock, Sparkles } from "lucide-react";
+import { CalendarDays, Plus, Trash2, ArrowRight, Lightbulb, CloudRain, Lock, Sparkles, Loader2 } from "lucide-react";
 import { addDays, format } from "date-fns";
 import { useGeolocation } from "@/hooks/useWeather";
 import { useForecast } from "@/hooks/useForecast";
@@ -12,13 +12,7 @@ import { useAuth } from "@/hooks/useAuth";
 import GrowthStageTimeline from "@/components/GrowthStageTimeline";
 import CropGrowthAnimation from "@/components/CropGrowthAnimation";
 import TimetableCalendar from "@/components/TimetableCalendar";
-
-interface PlannedCrop {
-  id: string;
-  cropKey: string;
-  plantingDate: string; // ISO string
-  growthDays: number; // allow user adjustment
-}
+import { useTimetablePersistence } from "@/hooks/useTimetablePersistence";
 
 const colorBars = ["bg-primary/80", "bg-leaf/80", "bg-sky/80", "bg-accent/80", "bg-earth/80"];
 
