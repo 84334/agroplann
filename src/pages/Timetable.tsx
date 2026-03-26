@@ -13,6 +13,7 @@ import GrowthStageTimeline from "@/components/GrowthStageTimeline";
 import CropGrowthAnimation from "@/components/CropGrowthAnimation";
 import TimetableCalendar from "@/components/TimetableCalendar";
 import { useTimetablePersistence } from "@/hooks/useTimetablePersistence";
+import { useCalendarReminders } from "@/hooks/useCalendarReminders";
 
 const colorBars = ["bg-primary/80", "bg-leaf/80", "bg-sky/80", "bg-accent/80", "bg-earth/80"];
 
@@ -27,6 +28,8 @@ export default function Timetable() {
       return JSON.parse(localStorage.getItem("agroplan_calendar_notes") || "{}");
     } catch { return {}; }
   });
+
+  const { addReminder, deleteReminder, getRemindersForDate } = useCalendarReminders();
 
   const handleNoteChange = (dateKey: string, note: string) => {
     setCalendarNotes((prev) => {
@@ -393,6 +396,9 @@ export default function Timetable() {
                 forecastDays={forecast?.days}
                 notes={calendarNotes}
                 onNoteChange={handleNoteChange}
+                getRemindersForDate={getRemindersForDate}
+                onAddReminder={addReminder}
+                onDeleteReminder={deleteReminder}
               />
             </div>
           ) : (

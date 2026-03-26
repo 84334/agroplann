@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      calendar_reminders: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          reminder_date: string
+          reminder_time: string
+          sent: boolean
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message?: string
+          reminder_date: string
+          reminder_time?: string
+          sent?: boolean
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          reminder_date?: string
+          reminder_time?: string
+          sent?: boolean
+          user_id?: string
+        }
+        Relationships: []
+      }
       chat_conversations: {
         Row: {
           created_at: string
