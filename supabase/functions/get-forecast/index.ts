@@ -22,7 +22,25 @@ serve(async (req) => {
 
     // Open-Meteo is completely free, no API key needed
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,weathercode,windspeed_10m_max&timezone=auto&forecast_days=16`;
-    const res = await fetch(url);
+    
+    let res: Response | null = null;
+    let lastErr: Error | null = null;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        res = await fetch(url);
+        lastErr = null;
+        break;
+      } catch (e) {
+        lastErr = e;
+        if (attempt < 2) await new Promise(r => setTimeout(r, 500 * (attempt + 1)));
+      }
+    }
+    if (!res) {
+      return new Response(JSON.stringify({ error: lastErr?.message || 'Forecast fetch failed after retries' }), {
+        status: 502,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
     const data = await res.json();
 
     if (!res.ok) {
