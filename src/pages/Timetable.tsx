@@ -17,7 +17,7 @@ import { useTimetablePersistence } from "@/hooks/useTimetablePersistence";
 const colorBars = ["bg-primary/80", "bg-leaf/80", "bg-sky/80", "bg-accent/80", "bg-earth/80"];
 
 export default function Timetable() {
-  const [planned, setPlanned] = useState<PlannedCrop[]>([]);
+  const { planned, setPlanned, loading: planLoading } = useTimetablePersistence();
   const [addingCrop, setAddingCrop] = useState("");
   const [addingDate, setAddingDate] = useState("");
   const [calendarMonth, setCalendarMonth] = useState(new Date());
