@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { crops } from "@/data/cropData";
 import { toast } from "sonner";
 
 interface PlannedCrop {
@@ -38,7 +39,8 @@ export function useTimetablePersistence() {
       if (data && !error) {
         const seq = data.rotation_sequence;
         if (Array.isArray(seq)) {
-          setPlanned(seq as unknown as PlannedCrop[]);
+          const valid = (seq as unknown as PlannedCrop[]).filter(p => crops[p.cropKey]);
+          setPlanned(valid);
         }
       }
       setLoading(false);
