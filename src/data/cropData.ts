@@ -394,6 +394,41 @@ export const rotationRules: Record<string, Recommendation[]> = {
     { crop: "peanut", reason: "Peanuts fix nitrogen and can serve as cover crops in replanting programs." },
     { crop: "soybean", reason: "Soybeans restore soil fertility after long-term palm cultivation." },
   ],
+  chilliPadi: [
+    { crop: "soybean", reason: "Legumes restore nitrogen depleted by chilli's heavy feeding and break solanaceous disease cycles." },
+    { crop: "onion", reason: "Alliums repel pests common to chilli and have different nutrient demands." },
+    { crop: "corn", reason: "Corn's deep roots improve soil structure after shallow-rooted chilli cultivation." },
+  ],
+  okra: [
+    { crop: "soybean", reason: "Legumes fix nitrogen after okra's moderate nutrient demands and break mallow family pest cycles." },
+    { crop: "cabbage", reason: "Brassicas are from a completely different family, breaking okra pest and disease cycles." },
+    { crop: "onion", reason: "Alliums suppress soil-borne pathogens and nematodes that affect okra." },
+  ],
+  eggplant: [
+    { crop: "soybean", reason: "Legumes restore nitrogen after heavy-feeding eggplant and break solanaceous disease cycles." },
+    { crop: "cabbage", reason: "Brassicas biofumigate soil, suppressing Verticillium and bacterial wilt pathogens." },
+    { crop: "corn", reason: "Cereals break nightshade family pest cycles and improve soil structure with deep roots." },
+  ],
+  blackPepper: [
+    { crop: "ginger", reason: "Ginger can be intercropped in pepper plantations, sharing similar shade and moisture needs." },
+    { crop: "peanut", reason: "Peanuts fix nitrogen and serve as ground cover in pepper replanting programs." },
+    { crop: "pineapple", reason: "Pineapple tolerates similar acidic soils and can be planted during pepper replanting cycles." },
+  ],
+  pineapple: [
+    { crop: "peanut", reason: "Peanuts fix nitrogen in the acidic soils left by pineapple and improve soil fertility." },
+    { crop: "ginger", reason: "Ginger thrives in organic-rich soil and has different pest profiles from pineapple." },
+    { crop: "cassava", reason: "Cassava tolerates the acidic, well-drained conditions typical of former pineapple fields." },
+  ],
+  ginger: [
+    { crop: "soybean", reason: "Legumes restore nitrogen depleted by ginger's long growth cycle and add organic matter." },
+    { crop: "corn", reason: "Corn's deep roots break up compacted soil after ginger and utilize different nutrients." },
+    { crop: "okra", reason: "Okra's fast growth cycle allows soil recovery between ginger plantings." },
+  ],
+  onion: [
+    { crop: "tomato", reason: "Tomatoes benefit from allicin residues in soil that suppress fungal pathogens." },
+    { crop: "cabbage", reason: "Brassicas thrive after alliums and are from a different family, breaking pest cycles." },
+    { crop: "corn", reason: "Cereals have completely different root systems and nutrient needs from shallow-rooted onions." },
+  ],
 };
 
 export const rotationTimeline = [
