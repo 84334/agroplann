@@ -128,7 +128,7 @@ export default function Predictions() {
                       : "border-border hover:border-primary/40"
                   }`}
                 >
-                  <span>{crop.emoji}</span>
+                  <CropIcon cropKey={key} emoji={crop.emoji} size="sm" />
                   <span className="font-medium text-xs">{crop.name}</span>
                 </button>
               ))}
