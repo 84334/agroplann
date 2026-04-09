@@ -19,20 +19,19 @@ Users can directly access the platform through a web browser on desktop or mobil
 - **Payments:** Stripe (freemium model)
 
 ## Deployment Roadmap
-**Phase 1: Develop (Current):**
-Build and deploy Minimum Viable Product (MVP)
-Conduct live testing with initial users
+**Phase 1: Develop (Current)**
+- Build and deploy Minimum Viable Product (MVP)
+- Conduct live testing with initial users
 
 **Phase 2: Testing**
-Beta launch at:
-https://agroplann.lovable.app 
-Gather user feedback and improve system performance
+- Beta launch at: https://agroplann.lovable.app 
+- Gather user feedback and improve system performance
 
 **Phase 3: IP Protection**
-Protect core technology (AI engine)
-Trademark AgroPlan brand
-Validate and certify crop data sources
+- Protect core technology (AI engine)
+- Trademark AgroPlan brand
+- Validate and certify crop data sources
 
 **Phase 4: Commercialise (Malaysia)**
-Launch freemium SaaS model for farmers
-Offer instructional licensing to government and agri-industry partners
+- Launch freemium SaaS model for farmers
+- Offer instructional licensing to government and agri-industry partners
