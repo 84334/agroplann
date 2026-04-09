@@ -34,6 +34,17 @@ export default function Timetable() {
 
   const { addReminder, deleteReminder, getRemindersForDate } = useCalendarReminders();
 
+  // Close crop dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setCropDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
   const handleNoteChange = (dateKey: string, note: string) => {
     setCalendarNotes((prev) => {
       const next = { ...prev };
