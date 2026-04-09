@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { crops, rotationRules } from "@/data/cropData";
 import { getCropStages, GrowthStage } from "@/lib/cropStages";
