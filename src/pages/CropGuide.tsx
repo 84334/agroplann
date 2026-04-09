@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CropIcon from "@/components/CropIcon";
 import { crops } from "@/data/cropData";
 import { Search, ExternalLink, BookOpen, Play } from "lucide-react";
 

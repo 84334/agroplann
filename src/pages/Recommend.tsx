@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CropIcon from "@/components/CropIcon";
 import { crops, rotationRules, locations, getWeatherAdjustment } from "@/data/cropData";
 import { Lightbulb, Calendar, MapPin, TrendingUp, Leaf, Cloud, Lock } from "lucide-react";
 import { format, addDays } from "date-fns";
