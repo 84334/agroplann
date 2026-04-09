@@ -14,6 +14,7 @@ import CropGrowthAnimation from "@/components/CropGrowthAnimation";
 import TimetableCalendar from "@/components/TimetableCalendar";
 import { useTimetablePersistence } from "@/hooks/useTimetablePersistence";
 import { useCalendarReminders } from "@/hooks/useCalendarReminders";
+import CropIcon from "@/components/CropIcon";
 
 const colorBars = ["bg-primary/80", "bg-leaf/80", "bg-sky/80", "bg-accent/80", "bg-earth/80"];
 
@@ -146,7 +147,7 @@ export default function Timetable() {
                       addingCrop === s.crop ? "border-primary bg-primary/10" : "border-border hover:border-primary/40"
                     }`}
                   >
-                    <span>{crops[s.crop].emoji}</span>
+                    <CropIcon cropKey={s.crop} emoji={crops[s.crop].emoji} size="sm" />
                     <span className="font-medium">{crops[s.crop].name}</span>
                     {suitability && (
                       <span className="text-[10px] opacity-70">
@@ -183,7 +184,7 @@ export default function Timetable() {
                       addingCrop === c.key ? "border-primary bg-primary/10" : "border-border hover:border-primary/40"
                     }`}
                   >
-                    <span>{c.crop.emoji}</span>
+                    <CropIcon cropKey={c.key} emoji={c.crop.emoji} size="sm" />
                     <span className="font-medium">{c.crop.name}</span>
                     <span className="text-[10px] text-leaf">🟢 {c.score?.score}</span>
                   </button>
@@ -305,7 +306,7 @@ export default function Timetable() {
                   <div key={p.id} className="flex items-center gap-2">
                     <div className={`${colorBars[i % colorBars.length]} rounded-lg px-4 py-3 text-white flex-1 min-w-[120px]`}>
                       <div className="flex items-center gap-2">
-                        <span className="text-xl">{crop.emoji}</span>
+                        <CropIcon cropKey={p.cropKey} emoji={crop.emoji} size="lg" />
                         <div>
                           <p className="font-semibold text-sm">{crop.name}</p>
                           <p className="text-[10px] opacity-80">{format(new Date(p.plantingDate), "MMM d")} → {format(harvestDate, "MMM d")}</p>
@@ -335,7 +336,7 @@ export default function Timetable() {
                     </span>
                     <div>
                       <h3 className="font-display font-semibold text-lg flex items-center gap-2">
-                        {crop.emoji} {crop.name}
+                         <CropIcon cropKey={p.cropKey} emoji={crop.emoji} size="md" /> {crop.name}
                       </h3>
                       <p className="text-xs text-muted-foreground">
                         {format(new Date(p.plantingDate), "MMM d, yyyy")} → {format(harvestDate, "MMM d, yyyy")} · {p.growthDays} days
