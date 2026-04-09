@@ -210,13 +210,10 @@ export default function Timetable() {
         <div className="grid gap-4 sm:grid-cols-[1fr_1fr_auto]">
           <div className="space-y-2">
             <label className="text-sm font-medium">Crop</label>
-            <div className="relative">
+            <div className="relative" ref={dropdownRef}>
               <button
                 type="button"
-                onClick={() => {
-                  const el = document.getElementById("crop-dropdown");
-                  if (el) el.classList.toggle("hidden");
-                }}
+                onClick={() => setCropDropdownOpen(!cropDropdownOpen)}
                 className="w-full flex items-center gap-2 rounded-lg border bg-background px-4 py-2.5 text-sm text-left focus:outline-none focus:ring-2 focus:ring-primary/50"
               >
                 {addingCrop && crops[addingCrop] ? (
@@ -228,27 +225,26 @@ export default function Timetable() {
                   <span className="text-muted-foreground">Select a crop...</span>
                 )}
               </button>
-              <div
-                id="crop-dropdown"
-                className="hidden absolute z-50 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border bg-background shadow-lg"
-              >
-                {Object.entries(crops).map(([key, crop]) => (
-                  <button
-                    key={key}
-                    type="button"
-                    onClick={() => {
-                      setAddingCrop(key);
-                      document.getElementById("crop-dropdown")?.classList.add("hidden");
-                    }}
-                    className={`w-full flex items-center gap-2 px-4 py-2.5 text-sm text-left hover:bg-muted transition-colors ${
-                      addingCrop === key ? "bg-primary/10 font-medium" : ""
-                    }`}
-                  >
-                    <CropIcon cropKey={key} emoji={crop.emoji} size="sm" />
-                    <span>{crop.name} ({crop.growthDays} days)</span>
-                  </button>
-                ))}
-              </div>
+              {cropDropdownOpen && (
+                <div className="absolute z-50 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border bg-background shadow-lg">
+                  {Object.entries(crops).map(([key, crop]) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => {
+                        setAddingCrop(key);
+                        setCropDropdownOpen(false);
+                      }}
+                      className={`w-full flex items-center gap-2 px-4 py-2.5 text-sm text-left hover:bg-muted transition-colors ${
+                        addingCrop === key ? "bg-primary/10 font-medium" : ""
+                      }`}
+                    >
+                      <CropIcon cropKey={key} emoji={crop.emoji} size="sm" />
+                      <span>{crop.name} ({crop.growthDays} days)</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           <div className="space-y-2">
