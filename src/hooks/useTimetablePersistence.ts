@@ -39,7 +39,8 @@ export function useTimetablePersistence() {
       if (data && !error) {
         const seq = data.rotation_sequence;
         if (Array.isArray(seq)) {
-          setPlanned(seq as unknown as PlannedCrop[]);
+          const valid = (seq as unknown as PlannedCrop[]).filter(p => crops[p.cropKey]);
+          setPlanned(valid);
         }
       }
       setLoading(false);
