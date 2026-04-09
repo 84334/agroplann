@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { crops, rotationRules } from "@/data/cropData";
 import { getCropStages, GrowthStage } from "@/lib/cropStages";
@@ -21,6 +21,8 @@ const colorBars = ["bg-primary/80", "bg-leaf/80", "bg-sky/80", "bg-accent/80", "
 export default function Timetable() {
   const { planned, setPlanned, loading: planLoading } = useTimetablePersistence();
   const [addingCrop, setAddingCrop] = useState("");
+  const [cropDropdownOpen, setCropDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [addingDate, setAddingDate] = useState("");
   const [calendarMonth, setCalendarMonth] = useState(new Date());
   const [showAuthGate, setShowAuthGate] = useState(false);
@@ -31,6 +33,17 @@ export default function Timetable() {
   });
 
   const { addReminder, deleteReminder, getRemindersForDate } = useCalendarReminders();
+
+  // Close crop dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setCropDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   const handleNoteChange = (dateKey: string, note: string) => {
     setCalendarNotes((prev) => {
@@ -197,18 +210,42 @@ export default function Timetable() {
         <div className="grid gap-4 sm:grid-cols-[1fr_1fr_auto]">
           <div className="space-y-2">
             <label className="text-sm font-medium">Crop</label>
-            <select
-              value={addingCrop}
-              onChange={(e) => setAddingCrop(e.target.value)}
-              className="w-full rounded-lg border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-            >
-              <option value="">Select a crop...</option>
-              {Object.entries(crops).map(([key, crop]) => (
-                <option key={key} value={key}>
-                  {crop.emoji} {crop.name} ({crop.growthDays} days)
-                </option>
-              ))}
-            </select>
+            <div className="relative" ref={dropdownRef}>
+              <button
+                type="button"
+                onClick={() => setCropDropdownOpen(!cropDropdownOpen)}
+                className="w-full flex items-center gap-2 rounded-lg border bg-background px-4 py-2.5 text-sm text-left focus:outline-none focus:ring-2 focus:ring-primary/50"
+              >
+                {addingCrop && crops[addingCrop] ? (
+                  <>
+                    <CropIcon cropKey={addingCrop} emoji={crops[addingCrop].emoji} size="sm" />
+                    <span>{crops[addingCrop].name} ({crops[addingCrop].growthDays} days)</span>
+                  </>
+                ) : (
+                  <span className="text-muted-foreground">Select a crop...</span>
+                )}
+              </button>
+              {cropDropdownOpen && (
+                <div className="absolute z-50 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border bg-background shadow-lg">
+                  {Object.entries(crops).map(([key, crop]) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => {
+                        setAddingCrop(key);
+                        setCropDropdownOpen(false);
+                      }}
+                      className={`w-full flex items-center gap-2 px-4 py-2.5 text-sm text-left hover:bg-muted transition-colors ${
+                        addingCrop === key ? "bg-primary/10 font-medium" : ""
+                      }`}
+                    >
+                      <CropIcon cropKey={key} emoji={crop.emoji} size="sm" />
+                      <span>{crop.name} ({crop.growthDays} days)</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium">Planting Date</label>
