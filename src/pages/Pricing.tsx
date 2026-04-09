@@ -84,7 +84,7 @@ export default function Pricing() {
           <div>
             <h2 className="font-display text-xl font-bold">Free</h2>
             <div className="mt-2">
-              <span className="text-3xl font-bold">$0</span>
+              <span className="text-3xl font-bold">RM0</span>
               <span className="text-muted-foreground">/month</span>
             </div>
           </div>
@@ -113,7 +113,7 @@ export default function Pricing() {
           <div>
             <h2 className="font-display text-xl font-bold">Pro</h2>
             <div className="mt-2">
-              <span className="text-3xl font-bold">$9.99</span>
+              <span className="text-3xl font-bold">RM9.99</span>
               <span className="text-muted-foreground">/month</span>
             </div>
           </div>
