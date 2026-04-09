@@ -197,18 +197,46 @@ export default function Timetable() {
         <div className="grid gap-4 sm:grid-cols-[1fr_1fr_auto]">
           <div className="space-y-2">
             <label className="text-sm font-medium">Crop</label>
-            <select
-              value={addingCrop}
-              onChange={(e) => setAddingCrop(e.target.value)}
-              className="w-full rounded-lg border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-            >
-              <option value="">Select a crop...</option>
-              {Object.entries(crops).map(([key, crop]) => (
-                <option key={key} value={key}>
-                  {crop.emoji} {crop.name} ({crop.growthDays} days)
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById("crop-dropdown");
+                  if (el) el.classList.toggle("hidden");
+                }}
+                className="w-full flex items-center gap-2 rounded-lg border bg-background px-4 py-2.5 text-sm text-left focus:outline-none focus:ring-2 focus:ring-primary/50"
+              >
+                {addingCrop && crops[addingCrop] ? (
+                  <>
+                    <CropIcon cropKey={addingCrop} emoji={crops[addingCrop].emoji} size="sm" />
+                    <span>{crops[addingCrop].name} ({crops[addingCrop].growthDays} days)</span>
+                  </>
+                ) : (
+                  <span className="text-muted-foreground">Select a crop...</span>
+                )}
+              </button>
+              <div
+                id="crop-dropdown"
+                className="hidden absolute z-50 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border bg-background shadow-lg"
+              >
+                {Object.entries(crops).map(([key, crop]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => {
+                      setAddingCrop(key);
+                      document.getElementById("crop-dropdown")?.classList.add("hidden");
+                    }}
+                    className={`w-full flex items-center gap-2 px-4 py-2.5 text-sm text-left hover:bg-muted transition-colors ${
+                      addingCrop === key ? "bg-primary/10 font-medium" : ""
+                    }`}
+                  >
+                    <CropIcon cropKey={key} emoji={crop.emoji} size="sm" />
+                    <span>{crop.name} ({crop.growthDays} days)</span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium">Planting Date</label>
