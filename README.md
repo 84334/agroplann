@@ -1,4 +1,4 @@
-# Welcome to the AgroPlan project
+# Welcome to AgroPlan
 
 # Title: Smart Crop Rotation & Farming Assistant
 
