@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CropIcon from "@/components/CropIcon";
 import { crops } from "@/data/cropData";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -128,7 +129,7 @@ export default function Predictions() {
                       : "border-border hover:border-primary/40"
                   }`}
                 >
-                  <span>{crop.emoji}</span>
+                  <CropIcon cropKey={key} emoji={crop.emoji} size="sm" />
                   <span className="font-medium text-xs">{crop.name}</span>
                 </button>
               ))}

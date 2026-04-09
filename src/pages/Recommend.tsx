@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CropIcon from "@/components/CropIcon";
 import { crops, rotationRules, locations, getWeatherAdjustment } from "@/data/cropData";
 import { Lightbulb, Calendar, MapPin, TrendingUp, Leaf, Cloud, Lock } from "lucide-react";
 import { format, addDays } from "date-fns";
@@ -96,7 +97,7 @@ export default function Recommend() {
                   : "border-border hover:border-primary/40"
               }`}
             >
-              <span className="text-2xl">{crop.emoji}</span>
+              <CropIcon cropKey={key} emoji={crop.emoji} size="lg" />
               <span className="text-xs font-medium">{crop.name}</span>
             </button>
           ))}
@@ -126,7 +127,7 @@ export default function Recommend() {
                   }`}
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="text-3xl">{info.emoji}</span>
+                    <CropIcon cropKey={rec.crop} emoji={info.emoji} size="xl" />
                     <div>
                       <h3 className="font-display font-semibold text-lg">{info.name}</h3>
                       <p className="text-xs text-muted-foreground">{info.growthDays} days · {info.yieldPerHectare}/ha</p>

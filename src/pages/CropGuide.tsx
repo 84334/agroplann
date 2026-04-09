@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CropIcon from "@/components/CropIcon";
 import { crops } from "@/data/cropData";
 import { Search, ExternalLink, BookOpen, Play } from "lucide-react";
 
@@ -118,7 +119,7 @@ export default function CropGuide() {
                   selected === key ? "bg-primary text-primary-foreground" : "hover:bg-muted text-foreground"
                 }`}
               >
-                <span className="text-lg">{crop.emoji}</span>
+                <CropIcon cropKey={key} emoji={crop.emoji} size="md" />
                 <span className="font-medium">{crop.name}</span>
               </button>
             ))}
@@ -129,7 +130,7 @@ export default function CropGuide() {
         {info && (
           <div className="rounded-xl border bg-card p-6 md:p-8 animate-fade-in-up" key={selected}>
             <div className="flex items-center gap-4 mb-6">
-              <span className="text-5xl">{info.emoji}</span>
+              <CropIcon cropKey={selected} emoji={info.emoji} size="xl" className="!w-12 !h-12" />
               <div>
                 <h2 className="font-display text-2xl font-bold">{info.name}</h2>
                 <p className="text-sm text-muted-foreground">{info.season}</p>
