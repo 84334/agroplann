@@ -128,7 +128,7 @@ export default function Index() {
             to="/recommend"
             className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground shadow-lg transition-transform hover:scale-105"
           >
-            Try the Demo <ArrowRight className="h-4 w-4" />
+            Start Farming <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>
