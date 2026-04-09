@@ -86,7 +86,7 @@ serve(async (req) => {
     // Drought warning
     if (totalPrecip < 5 && rainyDays < 2) {
       warnings.push("Very dry conditions ahead: minimal rainfall expected in the next 16 days.");
-      tips.push("Plan irrigation carefully. Consider drought-resistant crops like cassava or millet.");
+      tips.push("Plan irrigation carefully. Consider drought-resistant crops like pineapple or ginger.");
     }
 
     // Heat warnings
