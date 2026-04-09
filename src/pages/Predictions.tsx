@@ -243,14 +243,6 @@ export default function Predictions() {
                 </div>
               )}
 
-              <button
-                onClick={savePrediction}
-                disabled={saving}
-                className="w-full flex items-center justify-center gap-2 rounded-lg border-2 border-primary px-4 py-2.5 font-medium text-primary transition-colors hover:bg-primary/5 disabled:opacity-50"
-              >
-                <Save className="h-4 w-4" />
-                {saving ? "Saving..." : "Save Prediction"}
-              </button>
             </div>
           ) : (
             <div className="rounded-xl border border-dashed bg-muted/30 p-12 text-center">
