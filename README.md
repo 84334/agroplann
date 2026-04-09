@@ -12,11 +12,11 @@ No installation is required.
 Users can directly access the platform through a web browser on desktop or mobile devices.
 
 ## Technologies Used
--**Frontend:** React + TypeScript + Tailwind CSS
--**Backend:** Lovable Cloud (Database, Auth, Edge Functions)
--**AI:** Google Gemini 3 Flash — powers the farming chatbot
--**Weather:** Open-Meteo API (free, real-time)
--**Payments:** Stripe (freemium model)
+- **Frontend:** React + TypeScript + Tailwind CSS
+- **Backend:** Lovable Cloud (Database, Auth, Edge Functions)
+- **AI:** Google Gemini 3 Flash — powers the farming chatbot
+- **Weather:** Open-Meteo API (free, real-time)
+- **Payments:** Stripe (freemium model)
 
 ## Deployment Roadmap
 **Phase 1: Develop (Current):**
