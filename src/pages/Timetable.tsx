@@ -90,14 +90,16 @@ export default function Timetable() {
     );
   };
 
-  // Calendar entries for the calendar view
-  const calendarEntries = planned.map((p) => {
-    const crop = crops[p.cropKey];
-    const stages = getCropStages({ ...crop, growthDays: p.growthDays });
-    return {
-      cropKey: p.cropKey,
-      crop,
-      plantingDate: new Date(p.plantingDate),
+  // Calendar entries for the calendar view (filter out removed crops)
+  const calendarEntries = planned
+    .filter((p) => crops[p.cropKey])
+    .map((p) => {
+      const crop = crops[p.cropKey];
+      const stages = getCropStages({ ...crop, growthDays: p.growthDays });
+      return {
+        cropKey: p.cropKey,
+        crop,
+        plantingDate: new Date(p.plantingDate),
       stages,
     };
   });
