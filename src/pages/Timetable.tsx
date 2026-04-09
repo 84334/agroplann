@@ -21,6 +21,8 @@ const colorBars = ["bg-primary/80", "bg-leaf/80", "bg-sky/80", "bg-accent/80", "
 export default function Timetable() {
   const { planned, setPlanned, loading: planLoading } = useTimetablePersistence();
   const [addingCrop, setAddingCrop] = useState("");
+  const [cropDropdownOpen, setCropDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [addingDate, setAddingDate] = useState("");
   const [calendarMonth, setCalendarMonth] = useState(new Date());
   const [showAuthGate, setShowAuthGate] = useState(false);
