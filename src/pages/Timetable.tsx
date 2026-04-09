@@ -131,10 +131,10 @@ export default function Timetable() {
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 space-y-2">
             <p className="text-sm font-medium flex items-center gap-2">
               <Lightbulb className="h-4 w-4 text-primary" />
-              Suggested after {crops[lastCropKey!].emoji} {crops[lastCropKey!].name}:
+              Suggested after {crops[lastCropKey!]?.emoji} {crops[lastCropKey!]?.name}:
             </p>
             <div className="flex flex-wrap gap-2">
-              {rotationSuggestions.map((s) => {
+              {rotationSuggestions.filter((s) => crops[s.crop]).map((s) => {
                 const suitability = forecast ? checkCropWeatherSuitability(s.crop, forecast) : null;
                 return (
                   <button
@@ -296,7 +296,7 @@ export default function Timetable() {
           {/* Horizontal timeline bar */}
           <div className="rounded-xl border bg-card p-5 overflow-x-auto">
             <div className="flex gap-2 min-w-[500px]">
-              {planned.map((p, i) => {
+              {planned.filter((p) => crops[p.cropKey]).map((p, i) => {
                 const crop = crops[p.cropKey];
                 const harvestDate = addDays(new Date(p.plantingDate), p.growthDays);
                 return (
@@ -319,7 +319,7 @@ export default function Timetable() {
           </div>
 
           {/* Detailed cards with stages */}
-          {planned.map((p, i) => {
+          {planned.filter((p) => crops[p.cropKey]).map((p, i) => {
             const crop = crops[p.cropKey];
             const stages = getCropStages({ ...crop, growthDays: p.growthDays });
             const harvestDate = addDays(new Date(p.plantingDate), p.growthDays);
