@@ -14,6 +14,7 @@ import CropGrowthAnimation from "@/components/CropGrowthAnimation";
 import TimetableCalendar from "@/components/TimetableCalendar";
 import { useTimetablePersistence } from "@/hooks/useTimetablePersistence";
 import { useCalendarReminders } from "@/hooks/useCalendarReminders";
+import CropIcon from "@/components/CropIcon";
 
 const colorBars = ["bg-primary/80", "bg-leaf/80", "bg-sky/80", "bg-accent/80", "bg-earth/80"];
 
