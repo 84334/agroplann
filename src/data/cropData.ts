@@ -290,19 +290,14 @@ export const crops: Record<string, CropInfo> = {
 
 export const rotationRules: Record<string, Recommendation[]> = {
   corn: [
-    { crop: "soybean", reason: "Corn depletes nitrogen heavily. Soybean is a legume that fixes nitrogen back into the soil, restoring fertility naturally." },
-    { crop: "spinach", reason: "Spinach has shallow roots and benefits from residual nutrients. It also breaks pest cycles common in corn." },
     { crop: "peanut", reason: "Peanuts fix nitrogen and have different root depth, improving soil structure after corn." },
-  ],
-  soybean: [
-    { crop: "corn", reason: "After soybean's nitrogen fixation, corn can take advantage of the enriched soil for higher yields." },
-    { crop: "cabbage", reason: "Brassicas thrive in nitrogen-rich soil left by legumes and break soybean disease cycles." },
-    { crop: "rice", reason: "Rice benefits from the improved soil structure and nutrient profile left by soybeans." },
+    { crop: "spinach", reason: "Spinach has shallow roots and benefits from residual nutrients. It also breaks pest cycles common in corn." },
+    { crop: "onion", reason: "Alliums break corn pest cycles and thrive in well-drained soil left by corn." },
   ],
   rice: [
-    { crop: "soybean", reason: "Legumes restore nitrogen depleted by rice and improve soil aeration after waterlogged conditions." },
-    { crop: "corn", reason: "Corn's deep roots help break up compacted paddy soil and utilize different nutrient profiles." },
     { crop: "peanut", reason: "Peanuts fix nitrogen and thrive in the well-drained conditions needed after rice paddies." },
+    { crop: "corn", reason: "Corn's deep roots help break up compacted paddy soil and utilize different nutrient profiles." },
+    { crop: "okra", reason: "Okra's different family breaks rice pest cycles and benefits from residual moisture." },
   ],
   spinach: [
     { crop: "tomato", reason: "Tomatoes benefit from the organic matter left by spinach and have different pest profiles." },
@@ -310,14 +305,9 @@ export const rotationRules: Record<string, Recommendation[]> = {
     { crop: "cabbage", reason: "Alternating leafy greens with different families prevents disease buildup." },
   ],
   tomato: [
-    { crop: "soybean", reason: "Legumes restore nutrients depleted by heavy-feeding tomatoes and break solanaceous disease cycles." },
+    { crop: "peanut", reason: "Legumes restore nutrients depleted by heavy-feeding tomatoes and break solanaceous disease cycles." },
     { crop: "spinach", reason: "Fast-growing spinach acts as a cover crop, preventing erosion and suppressing weeds." },
     { crop: "corn", reason: "Corn is from a completely different family, breaking tomato pest and disease cycles effectively." },
-  ],
-  cassava: [
-    { crop: "peanut", reason: "Peanuts fix nitrogen depleted by cassava's long growth period and improve soil fertility." },
-    { crop: "soybean", reason: "Soybeans restore soil nutrients and have a much shorter cycle, allowing soil recovery." },
-    { crop: "spinach", reason: "Quick-growing spinach provides ground cover and adds organic matter to depleted soil." },
   ],
   peanut: [
     { crop: "corn", reason: "Corn benefits from nitrogen fixed by peanuts and has different root depth for soil balance." },
@@ -326,26 +316,21 @@ export const rotationRules: Record<string, Recommendation[]> = {
   ],
   cabbage: [
     { crop: "tomato", reason: "Tomatoes break brassica disease cycles and utilize different soil nutrient profiles." },
-    { crop: "soybean", reason: "Legumes restore nitrogen after heavy-feeding cabbage and improve soil structure." },
+    { crop: "peanut", reason: "Legumes restore nitrogen after heavy-feeding cabbage and improve soil structure." },
     { crop: "corn", reason: "Corn's tall growth and deep roots are completely different from cabbage, breaking pest cycles." },
   ],
-  palm: [
-    { crop: "cassava", reason: "Cassava can be intercropped or planted after palm clearing, tolerating similar acidic soils." },
-    { crop: "peanut", reason: "Peanuts fix nitrogen and can serve as cover crops in replanting programs." },
-    { crop: "soybean", reason: "Soybeans restore soil fertility after long-term palm cultivation." },
-  ],
   chilliPadi: [
-    { crop: "soybean", reason: "Legumes restore nitrogen depleted by chilli's heavy feeding and break solanaceous disease cycles." },
+    { crop: "peanut", reason: "Legumes restore nitrogen depleted by chilli's heavy feeding and break solanaceous disease cycles." },
     { crop: "onion", reason: "Alliums repel pests common to chilli and have different nutrient demands." },
     { crop: "corn", reason: "Corn's deep roots improve soil structure after shallow-rooted chilli cultivation." },
   ],
   okra: [
-    { crop: "soybean", reason: "Legumes fix nitrogen after okra's moderate nutrient demands and break mallow family pest cycles." },
+    { crop: "peanut", reason: "Legumes fix nitrogen after okra's moderate nutrient demands and break mallow family pest cycles." },
     { crop: "cabbage", reason: "Brassicas are from a completely different family, breaking okra pest and disease cycles." },
     { crop: "onion", reason: "Alliums suppress soil-borne pathogens and nematodes that affect okra." },
   ],
   eggplant: [
-    { crop: "soybean", reason: "Legumes restore nitrogen after heavy-feeding eggplant and break solanaceous disease cycles." },
+    { crop: "peanut", reason: "Legumes restore nitrogen after heavy-feeding eggplant and break solanaceous disease cycles." },
     { crop: "cabbage", reason: "Brassicas biofumigate soil, suppressing Verticillium and bacterial wilt pathogens." },
     { crop: "corn", reason: "Cereals break nightshade family pest cycles and improve soil structure with deep roots." },
   ],
@@ -357,10 +342,10 @@ export const rotationRules: Record<string, Recommendation[]> = {
   pineapple: [
     { crop: "peanut", reason: "Peanuts fix nitrogen in the acidic soils left by pineapple and improve soil fertility." },
     { crop: "ginger", reason: "Ginger thrives in organic-rich soil and has different pest profiles from pineapple." },
-    { crop: "cassava", reason: "Cassava tolerates the acidic, well-drained conditions typical of former pineapple fields." },
+    { crop: "onion", reason: "Onions have shallow roots and different nutrient needs, complementing pineapple's soil profile." },
   ],
   ginger: [
-    { crop: "soybean", reason: "Legumes restore nitrogen depleted by ginger's long growth cycle and add organic matter." },
+    { crop: "peanut", reason: "Legumes restore nitrogen depleted by ginger's long growth cycle and add organic matter." },
     { crop: "corn", reason: "Corn's deep roots break up compacted soil after ginger and utilize different nutrients." },
     { crop: "okra", reason: "Okra's fast growth cycle allows soil recovery between ginger plantings." },
   ],
@@ -373,7 +358,7 @@ export const rotationRules: Record<string, Recommendation[]> = {
 
 export const rotationTimeline = [
   { months: "Jan – Mar", crop: "corn", color: "primary" as const },
-  { months: "Apr – Jun", crop: "soybean", color: "leaf" as const },
+  { months: "Apr – Jun", crop: "peanut", color: "leaf" as const },
   { months: "Jul – Sep", crop: "spinach", color: "sky" as const },
   { months: "Oct – Dec", crop: "tomato", color: "accent" as const },
 ];
