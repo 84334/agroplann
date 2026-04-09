@@ -24,7 +24,7 @@ Users can directly access the platform through a web browser on desktop or mobil
 - Conduct live testing with initial users
 
 **Phase 2: Testing**
-- Beta launch at: https://agroplann.lovable.app 
+- Beta launch at: https://agroplann.lovable.app
 - Gather user feedback and improve system performance
 
 **Phase 3: IP Protection**
