@@ -207,8 +207,8 @@ export const crops: Record<string, CropInfo> = {
     bestSeasonMonths: [3, 4, 5, 6, 7, 8, 9],
   },
   blackPepper: {
-    name: "Black Pepper",
-    emoji: "🫚",
+    name: "Pepper",
+    emoji: "🌶️",
     soilType: "Deep, well-drained loam rich in organic matter, pH 5.5–6.5",
     waterReq: "2000–3000mm annually",
     fertilizer: "NPK 10-10-5 with organic compost; micronutrients (Zn, Mg)",
