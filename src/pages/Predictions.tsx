@@ -9,14 +9,18 @@ import { toast } from "sonner";
 // Simple market prices per ton (USD) for estimation
 const marketPrices: Record<string, number> = {
   corn: 250,
-  soybean: 450,
   rice: 400,
   spinach: 800,
   tomato: 600,
-  cassava: 150,
   peanut: 900,
   cabbage: 300,
-  palm: 200,
+  chilliPadi: 1200,
+  okra: 500,
+  eggplant: 550,
+  blackPepper: 3500,
+  pineapple: 350,
+  ginger: 1000,
+  onion: 700,
 };
 
 export default function Predictions() {
