@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { crops } from "@/data/cropData";
 import { toast } from "sonner";
 
 interface PlannedCrop {
